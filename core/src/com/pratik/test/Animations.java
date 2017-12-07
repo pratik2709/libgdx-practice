@@ -2,6 +2,7 @@ package com.pratik.test;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import static com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP_PINGPONG;
@@ -25,10 +27,10 @@ public class Animations extends ApplicationAdapter {
     //the world is scaled to fill the viewport (no black bars)
     ExtendViewport extendViewport;
 
-    Animation walkLoop;
+    Animation<TextureRegion> walkLoop;
     long startTime;
 
-    Animation explosion;
+    Animation<TextureRegion> explosion;
     DelayedRemovalArray<OneShotAnimation> explosions;
 
     @Override
@@ -37,7 +39,7 @@ public class Animations extends ApplicationAdapter {
         extendViewport = new ExtendViewport(100, 100);
 
         //set start time
-        startTime = System.nanoTime();
+        startTime = TimeUtils.nanoTime();
 
         Array<TextureRegion> walkLoopTextures = new Array<TextureRegion>();
 
@@ -67,6 +69,48 @@ public class Animations extends ApplicationAdapter {
     @Override
     public void render() {
         updateExplosions();
+        //https://github.com/libgdx/libgdx/wiki/Viewports
+        extendViewport.apply();
+
+        //??
+        Gdx.gl.glClearColor(1,1,1,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.setProjectionMatrix(extendViewport.getCamera().combined);
+
+        batch.begin();
+
+        float elapsedTime = MathUtils.nanoToSec * (TimeUtils.nanoTime() - startTime);
+
+        TextureRegion walkLoopTexture = walkLoop.getKeyFrame(elapsedTime);
+        drawRegionCentered(batch, walkLoopTexture,
+                extendViewport.getWorldWidth()/2,
+                extendViewport.getWorldHeight()/2);
+
+
+        batch.end();
+
+    }
+
+    private void drawRegionCentered(SpriteBatch batch, TextureRegion region, float x, float y){
+        batch.draw(
+                region.getTexture(),
+                x - region.getRegionWidth()/2,
+                y - region.getRegionHeight(),
+                0,0,
+                region.getRegionWidth(),
+                region.getRegionHeight(),
+                1,
+                1,
+                0,
+                region.getRegionX(),
+                region.getRegionY(),
+                region.getRegionWidth(),
+                region.getRegionHeight(),
+                false,
+                false
+
+        );
     }
 
     private void updateExplosions() {
@@ -84,7 +128,7 @@ public class Animations extends ApplicationAdapter {
             //2D vector
             Vector2 position = new Vector2(MathUtils.random(extendViewport.getWorldWidth()),
                     MathUtils.random(extendViewport.getWorldHeight()));
-            explosions.add(new OneShotAnimation());
+            explosions.add(new OneShotAnimation(explosion, position, TimeUtils.nanoTime()));
         }
 
     }

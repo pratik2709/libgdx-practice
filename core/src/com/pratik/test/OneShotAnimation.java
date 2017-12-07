@@ -9,24 +9,24 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class OneShotAnimation {
     public final Vector2 position;
-    private final Animation animation;
+    private final Animation<TextureRegion> animation;
     private final long startTimeNanos;
 
-    public OneShotAnimation(Animation animation, Vector2 position, long startTimeNanos){
+    public OneShotAnimation(Animation<TextureRegion> animation, Vector2 position, long startTimeNanos) {
         this.animation = animation;
         this.position = position;
         this.startTimeNanos = startTimeNanos;
     }
 
-    private float elapsedTime(){
+    private float elapsedTime() {
         return MathUtils.nanoToSec * (TimeUtils.nanoTime() - startTimeNanos);
     }
 
-    public TextureRegion getFrame(){
+    public TextureRegion getFrame() {
         return animation.getKeyFrame(elapsedTime());
     }
 
-    public boolean isAnimationFinished(){
+    public boolean isAnimationFinished() {
         return animation.isAnimationFinished(elapsedTime());
     }
 }
