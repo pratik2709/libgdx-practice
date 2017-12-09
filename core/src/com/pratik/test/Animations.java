@@ -82,6 +82,7 @@ public class Animations extends ApplicationAdapter {
 
         float elapsedTime = MathUtils.nanoToSec * (TimeUtils.nanoTime() - startTime);
 
+        //return frame of the animation at the given time
         TextureRegion walkLoopTexture = walkLoop.getKeyFrame(elapsedTime);
         drawRegionCentered(batch, walkLoopTexture,
                 extendViewport.getWorldWidth()/2,
@@ -120,6 +121,9 @@ public class Animations extends ApplicationAdapter {
     }
 
     private void updateExplosions() {
+        //remove finished animations ?
+        //queues the removals //delays them
+        // So that Garbage collector can do it at its own time accordingly ?
         explosions.begin();
         for (int i = 0; i < explosions.size; i++) {
             if (explosions.get(i).isAnimationFinished()) {
@@ -128,6 +132,7 @@ public class Animations extends ApplicationAdapter {
         }
         explosions.end();
 
+        //add them randomly
         //random explosion spawn
         //time span between current and last frame
         if (MathUtils.random() < Gdx.graphics.getDeltaTime() * EXPLOSION_SPAWN_RATE) {
