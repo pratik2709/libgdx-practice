@@ -63,7 +63,7 @@ public class Animations extends ApplicationAdapter {
     //whenever resize event occurs
     //resize viewport and update camera
     public void resize(int width, int height) {
-        extendViewport.update(width, height);
+        extendViewport.update(width, height, true);
     }
 
     @Override
@@ -86,6 +86,12 @@ public class Animations extends ApplicationAdapter {
         drawRegionCentered(batch, walkLoopTexture,
                 extendViewport.getWorldWidth()/2,
                 extendViewport.getWorldHeight()/2);
+
+
+        for(OneShotAnimation explosion: explosions){
+            drawRegionCentered(batch, explosion.getFrame(),
+                    explosion.position.x, explosion.position.y);
+        }
 
 
         batch.end();
