@@ -1,9 +1,6 @@
 package com.udacity.gamedev.gigagal.util;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class Constants {
     //background color
