@@ -1,6 +1,7 @@
 package com.udacity.gamedev.gigagal.util;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 
 public class Constants {
     //background color
@@ -13,5 +14,11 @@ public class Constants {
 
     //constant for standing right
     public static final String STANDING_RIGHT = "standing-right";
+
+    //Gigagal's eye postion within her sprites
+    public static  final Vector2 GIGAGAL_EYE_POSITION = new Vector2(16,24);
+
+    //float constant for gigagal's eye above her feet
+    public static final float GIGAGAL_EYE_HEIGHT = 16.0f;
 
 }
