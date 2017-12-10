@@ -49,6 +49,7 @@ public class GameplayScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta){
+        level.update(delta);
         extendViewport.apply();
         Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r,
                 Constants.BACKGROUND_COLOR.g,
@@ -59,9 +60,6 @@ public class GameplayScreen extends ScreenAdapter {
 
         //why?
         batch.setProjectionMatrix(extendViewport.getCamera().combined);
-
-        batch.begin();
         level.render(batch);
-        batch.end();
     }
 }

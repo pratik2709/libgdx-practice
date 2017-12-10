@@ -21,4 +21,5 @@ public class Constants {
     //float constant for gigagal's eye above her feet
     public static final float GIGAGAL_EYE_HEIGHT = 16.0f;
 
+    public static final int GIGAGAL_MOVE_SPEED = 40;
 }
