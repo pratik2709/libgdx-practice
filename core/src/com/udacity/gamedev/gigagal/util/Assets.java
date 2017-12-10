@@ -21,8 +21,8 @@ public class Assets implements Disposable, AssetErrorListener {
     private Assets(){
     }
 
-    public void init(){
-        assetManager = new AssetManager();
+    public void init(AssetManager assetManager){
+        this.assetManager = assetManager;
         assetManager.setErrorListener(this);
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.finishLoading();

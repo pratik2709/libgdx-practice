@@ -22,9 +22,8 @@ public class GigaGal {
 
     public void render(SpriteBatch batch){
         TextureRegion region = Assets.instance.gigaGalAssets.atlasRegion;
-        batch.begin();
         batch.draw(
-                Assets.instance.gigaGalAssets.atlasRegion.getTexture(),
+                region.getTexture(),
                 gigagalPosition.x,
                 gigagalPosition.y,
                 0,0,
@@ -38,7 +37,6 @@ public class GigaGal {
                 false,
                 false
         );
-        batch.end();
     }
 
     public void update(float delta){

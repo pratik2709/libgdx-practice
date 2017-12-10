@@ -2,6 +2,7 @@ package com.udacity.gamedev.gigagal;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -13,6 +14,10 @@ import static com.udacity.gamedev.gigagal.util.Constants.WORLD_SIZE;
 public class GameplayScreen extends ScreenAdapter {
 
     public static final String TAG = GameplayScreen.class.getName();
+
+    //level
+    Level level;
+
     // spritebatch -- batch quads using indices
     SpriteBatch batch;
 
@@ -21,7 +26,10 @@ public class GameplayScreen extends ScreenAdapter {
     @Override
     public void show(){
         //Assets
-        Assets.instance.init();
+        AssetManager am = new AssetManager();
+        Assets.instance.init(am);
+
+        level = new Level();
         batch = new SpriteBatch();
         extendViewport = new ExtendViewport(WORLD_SIZE, WORLD_SIZE);
 
@@ -53,23 +61,7 @@ public class GameplayScreen extends ScreenAdapter {
         batch.setProjectionMatrix(extendViewport.getCamera().combined);
 
         batch.begin();
-        batch.draw(Assets.instance.gigaGalAssets.atlasRegion.getTexture(),
-                50,
-                50,
-                0,
-                0,
-                Assets.instance.gigaGalAssets.atlasRegion.getRegionWidth(),
-                Assets.instance.gigaGalAssets.atlasRegion.getRegionHeight(),
-                1,
-                1,
-                0,
-                Assets.instance.gigaGalAssets.atlasRegion.getRegionX(),
-                Assets.instance.gigaGalAssets.atlasRegion.getRegionY(),
-                Assets.instance.gigaGalAssets.atlasRegion.getRegionWidth(),
-                Assets.instance.gigaGalAssets.atlasRegion.getRegionHeight(),
-                false,
-                false
-        );
+        level.render(batch);
         batch.end();
     }
 }
