@@ -1,5 +1,7 @@
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+
 buildscript {
-    
+
 
     repositories {
         mavenLocal()
@@ -8,7 +10,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        
+
+        // TODO: Add buildscript dependency on gdx-tools
+        classpath "com.badlogicgames.gdx:gdx-tools:1.7.0"
 
     }
 }
@@ -44,7 +48,7 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-        
+
     }
 }
 
@@ -55,8 +59,23 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-        
+
     }
+
+    //packTextures task
+    task packTextures {
+        def inputDir = "$rootDir/core/assets/rawAssets"
+        def outputDir = "$rootDir/core/assets/images"
+        inputs.dir inputDir
+        outputs.dir outputDir
+        doLast {
+            delete(outputDir)
+            TexturePacker.process(inputDir, outputDir, "gigagal.pack")
+        }
+    }
+
+    //dependencies
+    project.tasks.compileJava.dependsOn packTextures
 }
 
 tasks.eclipse.doLast {

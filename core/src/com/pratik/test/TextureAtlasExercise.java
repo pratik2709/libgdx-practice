@@ -6,7 +6,6 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
@@ -15,7 +14,8 @@ public class TextureAtlasExercise extends ApplicationAdapter implements AssetErr
     public static final String TAG = TextureAtlasExercise.class.getName();
 
     private static final String ATLAS = "images/gigagal.pack.atlas";
-    private static final String STANDING_RIGHT = "standing-right.png";
+    // notice no png
+    private static final String STANDING_RIGHT = "standing-right";
 
     //add asset manager
     private AssetManager assetManager;
@@ -48,6 +48,7 @@ public class TextureAtlasExercise extends ApplicationAdapter implements AssetErr
 
         //find a region
         standingRight = atlas.findRegion(STANDING_RIGHT);
+        Gdx.app.log("ttt", "we are running on" + atlas);
 
     }
 
@@ -63,7 +64,23 @@ public class TextureAtlasExercise extends ApplicationAdapter implements AssetErr
         batch.begin();
 
         //draw standing right region
-
+        batch.draw(
+                standingRight.getTexture(),
+                0,
+                0,
+                0,
+                0,
+                standingRight.getRegionWidth(),
+                standingRight.getRegionHeight(),
+                1,
+                1,
+                0,
+                standingRight.getRegionX(),
+                standingRight.getRegionY(),
+                standingRight.getRegionWidth(),
+                standingRight.getRegionHeight(),
+                false,
+                false);
 
         batch.end();
 
