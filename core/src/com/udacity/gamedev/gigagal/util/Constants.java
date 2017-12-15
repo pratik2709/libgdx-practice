@@ -15,6 +15,9 @@ public class Constants {
     //constant for standing right
     public static final String STANDING_RIGHT = "standing-right";
 
+    //left sprite
+    public static final String STANDING_LEFT = "standing-left";
+
     //Gigagal's eye postion within her sprites
     public static  final Vector2 GIGAGAL_EYE_POSITION = new Vector2(16,24);
 
