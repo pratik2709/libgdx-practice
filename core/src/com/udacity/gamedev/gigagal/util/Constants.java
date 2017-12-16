@@ -25,4 +25,13 @@ public class Constants {
     public static final float GIGAGAL_EYE_HEIGHT = 16.0f;
 
     public static final int GIGAGAL_MOVE_SPEED = 40;
+
+    //gigagal jump speed
+    public static final int GIGAGAL_JUMP_SPEED = 250;
+
+    //gigagal jump duration
+    public static final double GIGAGAL_JUMP_DURATION = 0.15;
+
+    //gigagal gravity
+    public static final int GRAVITY = 1000;
 }
