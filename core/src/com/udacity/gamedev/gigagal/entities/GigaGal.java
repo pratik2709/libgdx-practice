@@ -33,6 +33,8 @@ public class GigaGal {
 
     WalkState walkState;
 
+    long walkStartTime;
+
     public GigaGal(){
         //initialize gigagal position
         //why 20 ?
@@ -55,7 +57,10 @@ public class GigaGal {
             region = Assets.instance.gigaGalAssets.standingRight;
         }
         else if(facingDirection == Facing.RIGHT && walkState == WalkState.WALKING){
-            region = Assets.instance.gigaGalAssets.walkingRight;
+            //how long we
+            float walkElapsed = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
+
+            region = Assets.instance.gigaGalAssets.walkingRightAnimation.getKeyFrame(walkElapsed);
         }
 
         else if (facingDirection == Facing.LEFT && jumpState != JumpState.GROUNDED){
@@ -65,7 +70,9 @@ public class GigaGal {
             region = Assets.instance.gigaGalAssets.standingLeft;
         }
         else if (facingDirection == Facing.LEFT && walkState == WalkState.WALKING){
-            region = Assets.instance.gigaGalAssets.walkingLeft;
+            float walkElapsed = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
+
+            region = Assets.instance.gigaGalAssets.walkingLeftAnimation.getKeyFrame(walkElapsed);
         }
         else{
             region = null;
@@ -170,12 +177,19 @@ public class GigaGal {
     }
 
     private void moveRight(float delta) {
+        if(jumpState == JumpState.GROUNDED && walkState != WalkState.WALKING){
+            walkStartTime = TimeUtils.nanoTime();
+        }
         walkState = WalkState.WALKING;
         facingDirection = Facing.RIGHT;
         gigagalPosition.x += delta * GIGAGAL_MOVE_SPEED;
+
     }
 
     private void moveLeft(float delta) {
+        if(jumpState == JumpState.GROUNDED && walkState != WalkState.WALKING){
+            walkStartTime = TimeUtils.nanoTime();
+        }
         walkState = WalkState.WALKING;
         facingDirection = Facing.LEFT;
         gigagalPosition.x -= delta * GIGAGAL_MOVE_SPEED;

@@ -23,14 +23,23 @@ public class Constants {
     public static final String JUMPING_RIGHT = "jumping-right";
 
     //walk sprites
-    public static final String WALK_LEFT = "walk-2-left";
-    public static final String WALK_RIGHT = "walk-2-right";
+    public static final String WALK_2_LEFT = "walk-2-left";
+    public static final String WALK_2_RIGHT = "walk-2-right";
+
+    //4 other walking sprites
+    public static final String WALK_1_LEFT = "walk-1-left";
+    public static final String WALK_1_RIGHT = "walk-1-right";
+    public static final String WALK_3_LEFT = "walk-3-left";
+    public static final String WALK_3_RIGHT = "walk-3-right";
 
     //Gigagal's eye postion within her sprites
     public static  final Vector2 GIGAGAL_EYE_POSITION = new Vector2(16,24);
 
     //float constant for gigagal's eye above her feet
     public static final float GIGAGAL_EYE_HEIGHT = 16.0f;
+
+    //walk loop duration
+    public static final float WALK_LOOP_DURATION = 0.25f;
 
     public static final int GIGAGAL_MOVE_SPEED = 40;
 
