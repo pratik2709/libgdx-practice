@@ -31,6 +31,8 @@ public class GigaGal {
 
     long jumpStartTime;
 
+    WalkState walkState;
+
     public GigaGal(){
         //initialize gigagal position
         //why 20 ?
@@ -39,24 +41,34 @@ public class GigaGal {
         //??
         velocity = new Vector2();
         jumpState =JumpState.FALLING;
+        walkState = WalkState.STANDING;
     }
 
     public void render(SpriteBatch batch){
+
         TextureRegion region;
+
         if (facingDirection == Facing.RIGHT && jumpState != JumpState.GROUNDED){
             region = Assets.instance.gigaGalAssets.jumpingRight;
         }
-        else if(facingDirection == Facing.RIGHT){
+        else if(facingDirection == Facing.RIGHT && walkState == WalkState.STANDING){
             region = Assets.instance.gigaGalAssets.standingRight;
         }
+        else if(facingDirection == Facing.RIGHT && walkState == WalkState.WALKING){
+            region = Assets.instance.gigaGalAssets.walkingRight;
+        }
+
         else if (facingDirection == Facing.LEFT && jumpState != JumpState.GROUNDED){
             region = Assets.instance.gigaGalAssets.jumpingLeft;
         }
-        else if (facingDirection == Facing.LEFT){
+        else if(facingDirection == Facing.LEFT && walkState == WalkState.STANDING){
             region = Assets.instance.gigaGalAssets.standingLeft;
         }
+        else if (facingDirection == Facing.LEFT && walkState == WalkState.WALKING){
+            region = Assets.instance.gigaGalAssets.walkingLeft;
+        }
         else{
-            region = Assets.instance.gigaGalAssets.standingRight;
+            region = null;
         }
 
         batch.begin();
@@ -123,6 +135,10 @@ public class GigaGal {
         else if(Gdx.input.isKeyPressed(LEFT)){
             moveLeft(delta);
         }
+        else{
+            // no left and right so stand right there
+            walkState = WalkState.STANDING;
+        }
     }
 
     private void startJump() {
@@ -154,11 +170,13 @@ public class GigaGal {
     }
 
     private void moveRight(float delta) {
+        walkState = WalkState.WALKING;
         facingDirection = Facing.RIGHT;
         gigagalPosition.x += delta * GIGAGAL_MOVE_SPEED;
     }
 
     private void moveLeft(float delta) {
+        walkState = WalkState.WALKING;
         facingDirection = Facing.LEFT;
         gigagalPosition.x -= delta * GIGAGAL_MOVE_SPEED;
     }
@@ -169,6 +187,11 @@ public class GigaGal {
 
     enum Facing{
         RIGHT, LEFT
+    }
+
+    enum WalkState{
+        STANDING,
+        WALKING
     }
 
 }

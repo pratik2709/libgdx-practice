@@ -22,6 +22,10 @@ public class Constants {
     public static final String JUMPING_LEFT = "jumping-left";
     public static final String JUMPING_RIGHT = "jumping-right";
 
+    //walk sprites
+    public static final String WALK_LEFT = "walk-2-left";
+    public static final String WALK_RIGHT = "walk-2-right";
+
     //Gigagal's eye postion within her sprites
     public static  final Vector2 GIGAGAL_EYE_POSITION = new Vector2(16,24);
 
