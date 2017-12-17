@@ -18,6 +18,10 @@ public class Constants {
     //left sprite
     public static final String STANDING_LEFT = "standing-left";
 
+    //jumping-right and jumping-left sprite
+    public static final String JUMPING_LEFT = "jumping-left";
+    public static final String JUMPING_RIGHT = "jumping-right";
+
     //Gigagal's eye postion within her sprites
     public static  final Vector2 GIGAGAL_EYE_POSITION = new Vector2(16,24);
 

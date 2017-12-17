@@ -43,12 +43,22 @@ public class GigaGal {
 
     public void render(SpriteBatch batch){
         TextureRegion region;
-        if(facingDirection == Facing.RIGHT){
+        if (facingDirection == Facing.RIGHT && jumpState != JumpState.GROUNDED){
+            region = Assets.instance.gigaGalAssets.jumpingRight;
+        }
+        else if(facingDirection == Facing.RIGHT){
             region = Assets.instance.gigaGalAssets.standingRight;
         }
-        else{
+        else if (facingDirection == Facing.LEFT && jumpState != JumpState.GROUNDED){
+            region = Assets.instance.gigaGalAssets.jumpingLeft;
+        }
+        else if (facingDirection == Facing.LEFT){
             region = Assets.instance.gigaGalAssets.standingLeft;
         }
+        else{
+            region = Assets.instance.gigaGalAssets.standingRight;
+        }
+
         batch.begin();
 
         batch.draw(
@@ -72,13 +82,14 @@ public class GigaGal {
 
     public void update(float delta){
         //accelerate
+        //no idea ??
         velocity.y -= delta * GRAVITY;
 
         //apply velocity to position
         gigagalPosition.mulAdd(velocity,delta);
 
-        //
-        if(!(jumpState == JumpState.JUMPING)){
+        //if not jumping then means falling
+        if((jumpState != JumpState.JUMPING)){
             jumpState = JumpState.FALLING;
         }
 
@@ -127,10 +138,11 @@ public class GigaGal {
     }
 
     private void continueJumping() {
-        if(!(jumpState == JumpState.JUMPING)){
+        if((jumpState != JumpState.JUMPING)){
             return;
         }
         else{
+            // jump duration
             if(MathUtils.nanoToSec * (TimeUtils.nanoTime() - jumpStartTime) < GIGAGAL_JUMP_DURATION){
                 velocity.y = GIGAGAL_JUMP_SPEED;
             }
