@@ -5,6 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.udacity.gamedev.gigagal.util.Assets;
 import com.udacity.gamedev.gigagal.util.Constants;
@@ -22,6 +23,7 @@ public class GameplayScreen extends ScreenAdapter {
     SpriteBatch batch;
 
     ExtendViewport extendViewport;
+    ShapeRenderer renderer;
 
     @Override
     public void show(){
@@ -31,6 +33,8 @@ public class GameplayScreen extends ScreenAdapter {
 
         level = new Level();
         batch = new SpriteBatch();
+        renderer = new ShapeRenderer();
+        renderer.setAutoShapeType(true);
         extendViewport = new ExtendViewport(WORLD_SIZE, WORLD_SIZE);
 
     }
@@ -60,6 +64,6 @@ public class GameplayScreen extends ScreenAdapter {
 
         //why?
         batch.setProjectionMatrix(extendViewport.getCamera().combined);
-        level.render(batch);
+        level.render(batch, renderer);
     }
 }
