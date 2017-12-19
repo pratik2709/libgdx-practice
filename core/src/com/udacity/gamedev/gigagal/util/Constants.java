@@ -41,6 +41,12 @@ public class Constants {
     //walk loop duration
     public static final float WALK_LOOP_DURATION = 0.25f;
 
+    //platform sprite
+    public static final String PLATFORM_SPRITE = "platform";
+
+    //stretchable edges in platform 9 patch
+    public static final int EDGE = 8;
+
     public static final int GIGAGAL_MOVE_SPEED = 40;
 
     //gigagal jump speed

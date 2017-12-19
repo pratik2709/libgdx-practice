@@ -16,7 +16,10 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public GigaGalAssets gigaGalAssets;
 
+    public PlatformAssets platformAssets;
+
     private AssetManager assetManager;
+
 
     private Assets(){
     }
@@ -28,6 +31,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.finishLoading();
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
         gigaGalAssets = new GigaGalAssets(atlas);
+        platformAssets = new PlatformAssets(atlas);
     }
 
     @Override

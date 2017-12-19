@@ -1,7 +1,7 @@
 package com.udacity.gamedev.gigagal.entities;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.udacity.gamedev.gigagal.util.Assets;
 
 public class Platform {
 
@@ -17,10 +17,12 @@ public class Platform {
         this.right = left + width;
     }
 
-    public void render(ShapeRenderer renderer){
+    public void render(SpriteBatch batch){
         float width = right - left;
         float height = top - bottom;
-        renderer.setColor(Color.BLUE);
-        renderer.rect(left,bottom,width,height);
+
+        //?? wtf is left bottom
+        Assets.instance.platformAssets.platformNinePatch.draw(batch, left, bottom,
+                width, height);
     }
 }
