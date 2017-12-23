@@ -57,4 +57,7 @@ public class Constants {
 
     //gigagal gravity
     public static final int GRAVITY = 1000;
+
+    //gigagal's stance width ??
+    public static final int GIGAGAL_STANCE_WIDTH = 100;
 }

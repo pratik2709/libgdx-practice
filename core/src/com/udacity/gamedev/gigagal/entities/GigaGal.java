@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.udacity.gamedev.gigagal.util.Assets;
 import com.udacity.gamedev.gigagal.util.Constants;
@@ -20,6 +21,9 @@ public class GigaGal {
 
     //add a position
     Vector2 gigagalPosition;
+
+    //gigagal's position in last frame
+    Vector2 lastFramePosition;
 
     //facing member variable
     Facing facingDirection;
@@ -39,6 +43,7 @@ public class GigaGal {
         //initialize gigagal position
         //why 20 ?
         gigagalPosition = new Vector2(20, GIGAGAL_EYE_HEIGHT);
+        lastFramePosition = new Vector2();
         facingDirection = Facing.RIGHT;
         //??
         velocity = new Vector2();
@@ -99,7 +104,10 @@ public class GigaGal {
         batch.end();
     }
 
-    public void update(float delta){
+    public void update(float delta, Array<Platform> platforms){
+        //last frame position
+        lastFramePosition.set(gigagalPosition);
+
         //accelerate
         //no idea ??
         velocity.y -= delta * GRAVITY;
@@ -118,6 +126,15 @@ public class GigaGal {
             jumpState = JumpState.GROUNDED;
             gigagalPosition.y = Constants.GIGAGAL_EYE_HEIGHT;
             velocity.y = 0;
+        }
+
+        //check if landed on the platform
+        for (Platform platform:platforms){
+            if(landedOnPlatform(platform)){
+                jumpState = JumpState.GROUNDED;
+                velocity.y = 0;
+                gigagalPosition.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
+            }
         }
 
         if(Gdx.input.isKeyPressed(Z)){
@@ -146,6 +163,31 @@ public class GigaGal {
             // no left and right so stand right there
             walkState = WalkState.STANDING;
         }
+    }
+
+    private boolean landedOnPlatform(Platform platform) {
+        boolean leftFootIn = false;
+        boolean rightFootIn = false;
+        boolean straddle = false;
+
+        //??
+        if(lastFramePosition.y - Constants.GIGAGAL_EYE_HEIGHT >= platform.top &&
+                gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < platform.top){
+
+            //position of left and right toes
+            float leftFoot = gigagalPosition.x - Constants.GIGAGAL_STANCE_WIDTH/2;
+            float rightFoot = gigagalPosition.x + Constants.GIGAGAL_STANCE_WIDTH/2;
+
+            //toes on the platform
+            //??
+            leftFootIn = (platform.left < leftFoot && platform.right > leftFoot);
+            rightFootIn = (platform.left < rightFoot && platform.right > rightFoot);
+
+            //??
+            straddle = (platform.left > leftFoot && platform.right < rightFoot);
+
+        }
+        return leftFootIn || rightFootIn || straddle;
     }
 
     private void startJump() {
