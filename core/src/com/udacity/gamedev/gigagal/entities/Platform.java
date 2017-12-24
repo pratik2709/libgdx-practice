@@ -22,7 +22,7 @@ public class Platform {
         float height = top - bottom;
 
         //?? wtf is left bottom
-        Assets.instance.platformAssets.platformNinePatch.draw(batch, left, bottom,
-                width, height);
+        Assets.instance.platformAssets.platformNinePatch.draw(batch, left - 1, bottom - 1,
+                width + 2, height + 2);
     }
 }

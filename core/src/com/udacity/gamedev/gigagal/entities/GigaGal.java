@@ -39,7 +39,7 @@ public class GigaGal {
 
     long walkStartTime;
 
-    public GigaGal(){
+    public GigaGal() {
         //initialize gigagal position
         //why 20 ?
         gigagalPosition = new Vector2(20, GIGAGAL_EYE_HEIGHT);
@@ -47,39 +47,32 @@ public class GigaGal {
         facingDirection = Facing.RIGHT;
         //??
         velocity = new Vector2();
-        jumpState =JumpState.FALLING;
+        jumpState = JumpState.FALLING;
         walkState = WalkState.STANDING;
     }
 
-    public void render(SpriteBatch batch){
+    public void render(SpriteBatch batch) {
 
         TextureRegion region;
 
-        if (facingDirection == Facing.RIGHT && jumpState != JumpState.GROUNDED){
+        if (facingDirection == Facing.RIGHT && jumpState != JumpState.GROUNDED) {
             region = Assets.instance.gigaGalAssets.jumpingRight;
-        }
-        else if(facingDirection == Facing.RIGHT && walkState == WalkState.STANDING){
+        } else if (facingDirection == Facing.RIGHT && walkState == WalkState.STANDING) {
             region = Assets.instance.gigaGalAssets.standingRight;
-        }
-        else if(facingDirection == Facing.RIGHT && walkState == WalkState.WALKING){
+        } else if (facingDirection == Facing.RIGHT && walkState == WalkState.WALKING) {
             //how long we
             float walkElapsed = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
 
             region = Assets.instance.gigaGalAssets.walkingRightAnimation.getKeyFrame(walkElapsed);
-        }
-
-        else if (facingDirection == Facing.LEFT && jumpState != JumpState.GROUNDED){
+        } else if (facingDirection == Facing.LEFT && jumpState != JumpState.GROUNDED) {
             region = Assets.instance.gigaGalAssets.jumpingLeft;
-        }
-        else if(facingDirection == Facing.LEFT && walkState == WalkState.STANDING){
+        } else if (facingDirection == Facing.LEFT && walkState == WalkState.STANDING) {
             region = Assets.instance.gigaGalAssets.standingLeft;
-        }
-        else if (facingDirection == Facing.LEFT && walkState == WalkState.WALKING){
+        } else if (facingDirection == Facing.LEFT && walkState == WalkState.WALKING) {
             float walkElapsed = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
 
             region = Assets.instance.gigaGalAssets.walkingLeftAnimation.getKeyFrame(walkElapsed);
-        }
-        else{
+        } else {
             region = null;
         }
 
@@ -90,10 +83,10 @@ public class GigaGal {
 
                 gigagalPosition.x - Constants.GIGAGAL_EYE_POSITION.x,
                 gigagalPosition.y - Constants.GIGAGAL_EYE_POSITION.y,
-                0,0,
+                0, 0,
                 region.getRegionWidth(),
                 region.getRegionHeight(),
-                1,1, 0,
+                1, 1, 0,
                 region.getRegionX(),
                 region.getRegionY(),
                 region.getRegionWidth(),
@@ -104,7 +97,7 @@ public class GigaGal {
         batch.end();
     }
 
-    public void update(float delta, Array<Platform> platforms){
+    public void update(float delta, Array<Platform> platforms) {
         //last frame position
         lastFramePosition.set(gigagalPosition);
 
@@ -113,32 +106,33 @@ public class GigaGal {
         velocity.y -= delta * GRAVITY;
 
         //apply velocity to position
-        gigagalPosition.mulAdd(velocity,delta);
+        gigagalPosition.mulAdd(velocity, delta);
 
         //if not jumping then means falling
-        if((jumpState != JumpState.JUMPING)){
+        if ((jumpState != JumpState.JUMPING)) {
             jumpState = JumpState.FALLING;
-        }
 
-        //check if landed on the ground
-        //??
-        if(gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < 0){
-            jumpState = JumpState.GROUNDED;
-            gigagalPosition.y = Constants.GIGAGAL_EYE_HEIGHT;
-            velocity.y = 0;
-        }
-
-        //check if landed on the platform
-        for (Platform platform:platforms){
-            if(landedOnPlatform(platform)){
+            //check if landed on the ground
+            //??
+            if (gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < 0) {
                 jumpState = JumpState.GROUNDED;
+                gigagalPosition.y = Constants.GIGAGAL_EYE_HEIGHT;
                 velocity.y = 0;
-                gigagalPosition.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
+            }
+
+            //check if landed on the platform
+            for (Platform platform : platforms) {
+                if (landedOnPlatform(platform)) {
+                    jumpState = JumpState.GROUNDED;
+                    velocity.y = 0;
+                    gigagalPosition.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
+                }
             }
         }
 
-        if(Gdx.input.isKeyPressed(Z)){
-            switch (jumpState){
+
+        if (Gdx.input.isKeyPressed(Z)) {
+            switch (jumpState) {
                 case JUMPING:
                     continueJumping();
                     break;
@@ -148,18 +142,15 @@ public class GigaGal {
                 case FALLING:
                     break;
             }
-        }
-        else {
+        } else {
             endJump();
         }
-        if(Gdx.input.isKeyPressed(RIGHT)){
+        if (Gdx.input.isKeyPressed(RIGHT)) {
 
             moveRight(delta);
-        }
-        else if(Gdx.input.isKeyPressed(LEFT)){
+        } else if (Gdx.input.isKeyPressed(LEFT)) {
             moveLeft(delta);
-        }
-        else{
+        } else {
             // no left and right so stand right there
             walkState = WalkState.STANDING;
         }
@@ -171,12 +162,12 @@ public class GigaGal {
         boolean straddle = false;
 
         //??
-        if(lastFramePosition.y - Constants.GIGAGAL_EYE_HEIGHT >= platform.top &&
-                gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < platform.top){
+        if (lastFramePosition.y - Constants.GIGAGAL_EYE_HEIGHT >= platform.top &&
+                gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < platform.top) {
 
             //position of left and right toes
-            float leftFoot = gigagalPosition.x - Constants.GIGAGAL_STANCE_WIDTH/2;
-            float rightFoot = gigagalPosition.x + Constants.GIGAGAL_STANCE_WIDTH/2;
+            float leftFoot = gigagalPosition.x - Constants.GIGAGAL_STANCE_WIDTH / 2;
+            float rightFoot = gigagalPosition.x + Constants.GIGAGAL_STANCE_WIDTH / 2;
 
             //toes on the platform
             //??
@@ -197,21 +188,19 @@ public class GigaGal {
     }
 
     private void endJump() {
-        if(jumpState == JumpState.JUMPING){
+        if (jumpState == JumpState.JUMPING) {
             jumpState = JumpState.FALLING;
         }
     }
 
     private void continueJumping() {
-        if((jumpState != JumpState.JUMPING)){
+        if ((jumpState != JumpState.JUMPING)) {
             return;
-        }
-        else{
+        } else {
             // jump duration
-            if(MathUtils.nanoToSec * (TimeUtils.nanoTime() - jumpStartTime) < GIGAGAL_JUMP_DURATION){
+            if (MathUtils.nanoToSec * (TimeUtils.nanoTime() - jumpStartTime) < GIGAGAL_JUMP_DURATION) {
                 velocity.y = GIGAGAL_JUMP_SPEED;
-            }
-            else{
+            } else {
                 endJump();
             }
         }
@@ -219,7 +208,7 @@ public class GigaGal {
     }
 
     private void moveRight(float delta) {
-        if(jumpState == JumpState.GROUNDED && walkState != WalkState.WALKING){
+        if (jumpState == JumpState.GROUNDED && walkState != WalkState.WALKING) {
             walkStartTime = TimeUtils.nanoTime();
         }
         walkState = WalkState.WALKING;
@@ -229,7 +218,7 @@ public class GigaGal {
     }
 
     private void moveLeft(float delta) {
-        if(jumpState == JumpState.GROUNDED && walkState != WalkState.WALKING){
+        if (jumpState == JumpState.GROUNDED && walkState != WalkState.WALKING) {
             walkStartTime = TimeUtils.nanoTime();
         }
         walkState = WalkState.WALKING;
@@ -241,11 +230,11 @@ public class GigaGal {
         JUMPING, FALLING, GROUNDED
     }
 
-    enum Facing{
+    enum Facing {
         RIGHT, LEFT
     }
 
-    enum WalkState{
+    enum WalkState {
         STANDING,
         WALKING
     }
