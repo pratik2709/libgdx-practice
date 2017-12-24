@@ -1,9 +1,12 @@
 package com.udacity.gamedev.gigagal;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.udacity.gamedev.gigagal.entities.GigaGal;
 import com.udacity.gamedev.gigagal.entities.Platform;
+
+import static com.udacity.gamedev.gigagal.util.Constants.GIGAGAL_EYE_HEIGHT;
 
 
 public class Level {
@@ -12,8 +15,6 @@ public class Level {
 
 
     public Level(){
-
-        gigaGal = new GigaGal();
         platformArray = new Array<Platform>();
         addDebugPlatform();
     }
@@ -23,6 +24,8 @@ public class Level {
         platformArray.add(new Platform(75, 90, 100, 65));
         platformArray.add(new Platform(35, 55, 50, 20));
         platformArray.add(new Platform(10, 20, 20, 9));
+
+        gigaGal = new GigaGal(new Vector2(80, 110));
     }
 
     public void render(SpriteBatch batch){

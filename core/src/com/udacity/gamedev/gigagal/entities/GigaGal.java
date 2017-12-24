@@ -39,10 +39,10 @@ public class GigaGal {
 
     long walkStartTime;
 
-    public GigaGal() {
+    public GigaGal(Vector2 position) {
         //initialize gigagal position
         //why 20 ?
-        gigagalPosition = new Vector2(20, GIGAGAL_EYE_HEIGHT);
+        gigagalPosition = position;
         lastFramePosition = new Vector2();
         facingDirection = Facing.RIGHT;
         //??
