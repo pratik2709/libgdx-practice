@@ -6,8 +6,6 @@ import com.badlogic.gdx.utils.Array;
 import com.udacity.gamedev.gigagal.entities.GigaGal;
 import com.udacity.gamedev.gigagal.entities.Platform;
 
-import static com.udacity.gamedev.gigagal.util.Constants.GIGAGAL_EYE_HEIGHT;
-
 
 public class Level {
     GigaGal gigaGal;

@@ -115,11 +115,12 @@ public class GigaGal {
 
             //check if landed on the ground
             //??
-            if (gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < 0) {
-                jumpState = JumpState.GROUNDED;
-                gigagalPosition.y = Constants.GIGAGAL_EYE_HEIGHT;
-                velocity.y = 0;
-            }
+            //remove the ground
+//            if (gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < 0) {
+//                jumpState = JumpState.GROUNDED;
+//                gigagalPosition.y = Constants.GIGAGAL_EYE_HEIGHT;
+//                velocity.y = 0;
+//            }
 
 //            System.out.println(platforms.size);
             //check if landed on the platform
