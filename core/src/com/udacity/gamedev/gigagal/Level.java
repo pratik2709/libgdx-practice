@@ -15,7 +15,14 @@ public class Level {
 
         gigaGal = new GigaGal();
         platformArray = new Array<Platform>();
-        platformArray.add(new Platform(70, 30 ,20, 20));
+        addDebugPlatform();
+    }
+
+    private void addDebugPlatform() {
+        platformArray.add(new Platform(15, 100, 30, 20));
+        platformArray.add(new Platform(75, 90, 100, 65));
+        platformArray.add(new Platform(35, 55, 50, 20));
+        platformArray.add(new Platform(10, 20, 20, 9));
     }
 
     public void render(SpriteBatch batch){

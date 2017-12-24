@@ -98,6 +98,7 @@ public class GigaGal {
     }
 
     public void update(float delta, Array<Platform> platforms) {
+//        System.out.println(gigagalPosition.y);
         //last frame position
         lastFramePosition.set(gigagalPosition);
 
@@ -120,6 +121,7 @@ public class GigaGal {
                 velocity.y = 0;
             }
 
+//            System.out.println(platforms.size);
             //check if landed on the platform
             for (Platform platform : platforms) {
                 if (landedOnPlatform(platform)) {
@@ -164,6 +166,7 @@ public class GigaGal {
         //??
         if (lastFramePosition.y - Constants.GIGAGAL_EYE_HEIGHT >= platform.top &&
                 gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < platform.top) {
+
 
             //position of left and right toes
             float leftFoot = gigagalPosition.x - Constants.GIGAGAL_STANCE_WIDTH / 2;
