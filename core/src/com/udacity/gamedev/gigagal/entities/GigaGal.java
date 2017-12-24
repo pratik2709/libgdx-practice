@@ -19,6 +19,8 @@ public class GigaGal {
 
     public final static String TAG = GigaGal.class.getName();
 
+    Vector2 spawnLocation;
+
     //add a position
     public Vector2 gigagalPosition;
 
@@ -40,14 +42,20 @@ public class GigaGal {
     long walkStartTime;
 
     public GigaGal(Vector2 position) {
-        //initialize gigagal position
-        //why 20 ?
-        gigagalPosition = position;
+        this.spawnLocation = position;
+        gigagalPosition = new Vector2();
         lastFramePosition = new Vector2();
-        facingDirection = Facing.RIGHT;
-        //??
         velocity = new Vector2();
+
+        init();
+    }
+
+    public void init(){
+        gigagalPosition.set(spawnLocation);
+        lastFramePosition.set(gigagalPosition);
+        velocity.y = 0;
         jumpState = JumpState.FALLING;
+        facingDirection = Facing.RIGHT;
         walkState = WalkState.STANDING;
     }
 
@@ -98,6 +106,7 @@ public class GigaGal {
     }
 
     public void update(float delta, Array<Platform> platforms) {
+
 //        System.out.println(gigagalPosition.y);
         //last frame position
         lastFramePosition.set(gigagalPosition);
@@ -108,6 +117,10 @@ public class GigaGal {
 
         //apply velocity to position
         gigagalPosition.mulAdd(velocity, delta);
+
+        if(gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < Constants.KILL_PLANE){
+            init();
+        }
 
         //if not jumping then means falling
         if ((jumpState != JumpState.JUMPING)) {

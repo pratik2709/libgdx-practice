@@ -10,6 +10,9 @@ public class Constants {
 
     public static final float WORLD_SIZE = 128;
 
+    //height of the kill plane
+    public static final int KILL_PLANE = -100;
+
     public static final String TEXTURE_ATLAS = "images/gigagal.pack.atlas";
 
     //constant for standing right
