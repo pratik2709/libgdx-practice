@@ -20,7 +20,7 @@ public class GigaGal {
     public final static String TAG = GigaGal.class.getName();
 
     //add a position
-    Vector2 gigagalPosition;
+    public Vector2 gigagalPosition;
 
     //gigagal's position in last frame
     Vector2 lastFramePosition;
