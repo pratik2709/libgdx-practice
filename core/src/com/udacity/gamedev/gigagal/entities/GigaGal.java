@@ -86,7 +86,6 @@ public class GigaGal {
         }
 
         batch.begin();
-
         Util.drawTextureRegion(batch, region,  gigagalPosition, Constants.GIGAGAL_EYE_POSITION);
         batch.end();
     }

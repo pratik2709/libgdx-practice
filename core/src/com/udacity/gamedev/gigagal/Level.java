@@ -3,17 +3,16 @@ package com.udacity.gamedev.gigagal;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.DelayedRemovalArray;
+import com.udacity.gamedev.gigagal.entities.Enemy;
 import com.udacity.gamedev.gigagal.entities.GigaGal;
 import com.udacity.gamedev.gigagal.entities.Platform;
-import com.udacity.gamedev.gigagal.util.Assets;
-import com.udacity.gamedev.gigagal.util.Constants;
-import com.udacity.gamedev.gigagal.util.Util;
 
 
 public class Level {
     GigaGal gigaGal;
     Array<Platform> platformArray;
-
+    private DelayedRemovalArray<Enemy> enemies;
 
     public Level() {
         platformArray = new Array<Platform>();
@@ -33,6 +32,8 @@ public class Level {
         platformArray.add(new Platform(280, 100, 30, 9));
 
         gigaGal = new GigaGal(new Vector2(80, 110));
+        enemies = new DelayedRemovalArray<Enemy>();
+        enemies.add(new Enemy(new Platform(15, 100, 30, 20)));
     }
 
     public void render(SpriteBatch batch) {
@@ -41,16 +42,21 @@ public class Level {
             platform.render(batch);
         }
         //add an enemy
-        Util.drawTextureRegion(batch, Assets.instance.enemyAssets.enemyAtlasRegion,
-                new Vector2(100,100), Constants.ENEMY_CENTER
-                );
-
+        for(Enemy enemy: enemies){
+            enemy.render(batch);
+        }
         batch.end();
         gigaGal.render(batch);
 
     }
 
     public void update(float delta) {
+
         gigaGal.update(delta, platformArray);
+
+        for(int i = 0; i < enemies.size; i++){
+            Enemy enemy = enemies.get(i);
+            enemy.update(delta);
+        }
     }
 }
