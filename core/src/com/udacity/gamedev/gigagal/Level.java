@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.udacity.gamedev.gigagal.entities.GigaGal;
 import com.udacity.gamedev.gigagal.entities.Platform;
 import com.udacity.gamedev.gigagal.util.Assets;
+import com.udacity.gamedev.gigagal.util.Constants;
 
 
 public class Level {
@@ -40,8 +41,8 @@ public class Level {
         }
         //add an enemy
         batch.draw(Assets.instance.enemyAssets.enemyAtlasRegion.getTexture(),
-                0,
-                0,
+                100 + Constants.ENEMY_CENTER.x,
+                100 + Constants.ENEMY_CENTER.y,
                 0,
                 0,
                 Assets.instance.enemyAssets.enemyAtlasRegion.getRegionWidth(),
