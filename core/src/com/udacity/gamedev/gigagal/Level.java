@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.udacity.gamedev.gigagal.entities.GigaGal;
 import com.udacity.gamedev.gigagal.entities.Platform;
+import com.udacity.gamedev.gigagal.util.Assets;
 
 
 public class Level {
@@ -12,7 +13,7 @@ public class Level {
     Array<Platform> platformArray;
 
 
-    public Level(){
+    public Level() {
         platformArray = new Array<Platform>();
         addDebugPlatform();
     }
@@ -32,16 +33,34 @@ public class Level {
         gigaGal = new GigaGal(new Vector2(80, 110));
     }
 
-    public void render(SpriteBatch batch){
+    public void render(SpriteBatch batch) {
         batch.begin();
-        for(Platform platform:platformArray){
+        for (Platform platform : platformArray) {
             platform.render(batch);
         }
+        //add an enemy
+        batch.draw(Assets.instance.enemyAssets.enemyAtlasRegion.getTexture(),
+                0,
+                0,
+                0,
+                0,
+                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionWidth(),
+                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionHeight(),
+                1,
+                1,
+                0,
+                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionX(),
+                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionY(),
+                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionWidth(),
+                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionHeight(),
+                false,
+                false);
         batch.end();
         gigaGal.render(batch);
+
     }
 
-    public void update(float delta){
+    public void update(float delta) {
         gigaGal.update(delta, platformArray);
     }
 }

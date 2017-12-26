@@ -69,7 +69,7 @@ public class GigaGal {
             region = Assets.instance.gigaGalAssets.standingRight;
         } else if (facingDirection == Facing.RIGHT && walkState == WalkState.WALKING) {
             //how long we
-            float walkElapsed = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
+            float walkElapsed = secondsSince();
 
             region = Assets.instance.gigaGalAssets.walkingRightAnimation.getKeyFrame(walkElapsed);
         } else if (facingDirection == Facing.LEFT && jumpState != JumpState.GROUNDED) {
@@ -77,7 +77,7 @@ public class GigaGal {
         } else if (facingDirection == Facing.LEFT && walkState == WalkState.STANDING) {
             region = Assets.instance.gigaGalAssets.standingLeft;
         } else if (facingDirection == Facing.LEFT && walkState == WalkState.WALKING) {
-            float walkElapsed = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
+            float walkElapsed = secondsSince();
 
             region = Assets.instance.gigaGalAssets.walkingLeftAnimation.getKeyFrame(walkElapsed);
         } else {
@@ -103,6 +103,10 @@ public class GigaGal {
                 false
         );
         batch.end();
+    }
+
+    private float secondsSince() {
+        return MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
     }
 
     public void update(float delta, Array<Platform> platforms) {
