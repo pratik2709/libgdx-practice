@@ -37,6 +37,7 @@ public class Constants {
 
     public static final String ENEMY = "enemy";
     public static final Vector2 ENEMY_CENTER = new Vector2(14,22);
+    public static final int ENEMY_MOVEMENT_SPEED = 10;
 
     //Gigagal's eye postion within her sprites
     public static  final Vector2 GIGAGAL_EYE_POSITION = new Vector2(16,24);
