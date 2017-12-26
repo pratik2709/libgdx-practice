@@ -63,4 +63,6 @@ public class Constants {
 
     //gigagal's stance width ??
     public static final float GIGAGAL_STANCE_WIDTH =  21.0f;
+
+    public static final float CAMERA_MOVE_SPEED =  100.0f;
 }

@@ -58,7 +58,7 @@ public class GameplayScreen extends ScreenAdapter {
     @Override
     public void render(float delta){
         level.update(delta);
-        chaseCamera.update();
+        chaseCamera.update(delta);
         extendViewport.apply();
         Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r,
                 Constants.BACKGROUND_COLOR.g,
