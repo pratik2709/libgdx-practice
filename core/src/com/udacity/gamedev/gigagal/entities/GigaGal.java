@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.udacity.gamedev.gigagal.util.Assets;
 import com.udacity.gamedev.gigagal.util.Constants;
+import com.udacity.gamedev.gigagal.util.Util;
 
 import static com.badlogic.gdx.Input.Keys.LEFT;
 import static com.badlogic.gdx.Input.Keys.RIGHT;
@@ -86,22 +87,7 @@ public class GigaGal {
 
         batch.begin();
 
-        batch.draw(
-                region.getTexture(),
-
-                gigagalPosition.x - Constants.GIGAGAL_EYE_POSITION.x,
-                gigagalPosition.y - Constants.GIGAGAL_EYE_POSITION.y,
-                0, 0,
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                1, 1, 0,
-                region.getRegionX(),
-                region.getRegionY(),
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                false,
-                false
-        );
+        Util.drawTextureRegion(batch, region,  gigagalPosition, Constants.GIGAGAL_EYE_POSITION);
         batch.end();
     }
 
