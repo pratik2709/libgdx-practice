@@ -2,7 +2,9 @@ package com.udacity.gamedev.gigagal.util;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class Util {
     public static void drawTextureRegion(SpriteBatch batch, TextureRegion region, Vector2 position, Vector2 offset) {
@@ -27,5 +29,9 @@ public class Util {
                 region.getRegionHeight(),
                 false,
                 false);
+    }
+
+    public static float secondsSince(long startTime) {
+        return MathUtils.nanoToSec * (TimeUtils.nanoTime() - startTime);
     }
 }

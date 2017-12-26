@@ -1,12 +1,15 @@
 package com.udacity.gamedev.gigagal.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.udacity.gamedev.gigagal.util.Assets;
 import com.udacity.gamedev.gigagal.util.Enums.Direction;
 import com.udacity.gamedev.gigagal.util.Constants;
 import com.udacity.gamedev.gigagal.util.Util;
+
+import static java.lang.Math.PI;
 
 public class Enemy {
 
@@ -16,7 +19,6 @@ public class Enemy {
     private Direction direction;
     final long startTime;
 
-    boolean moveLeft = false;
 
     public Enemy(Platform platform) {
         this.platform = platform;
@@ -44,6 +46,13 @@ public class Enemy {
             enemyPosition.x = platform.left;
             direction = Direction.RIGHT;
         }
+
+        final float elapsedTime = Util.secondsSince(startTime);
+        final float bobMultiplier = 1 + MathUtils.sin(MathUtils.PI2 *
+                elapsedTime/Constants.ENEMY_BOB_PERIOD);
+
+        enemyPosition.y = platform.top + Constants.ENEMY_CENTER.y +
+                (bobMultiplier * Constants.ENEMY_BOB_AMPLITUDE);
 
     }
 
