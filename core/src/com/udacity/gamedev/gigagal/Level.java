@@ -7,6 +7,7 @@ import com.udacity.gamedev.gigagal.entities.GigaGal;
 import com.udacity.gamedev.gigagal.entities.Platform;
 import com.udacity.gamedev.gigagal.util.Assets;
 import com.udacity.gamedev.gigagal.util.Constants;
+import com.udacity.gamedev.gigagal.util.Util;
 
 
 public class Level {
@@ -40,22 +41,10 @@ public class Level {
             platform.render(batch);
         }
         //add an enemy
-        batch.draw(Assets.instance.enemyAssets.enemyAtlasRegion.getTexture(),
-                100 + Constants.ENEMY_CENTER.x,
-                100 + Constants.ENEMY_CENTER.y,
-                0,
-                0,
-                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionWidth(),
-                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionHeight(),
-                1,
-                1,
-                0,
-                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionX(),
-                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionY(),
-                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionWidth(),
-                Assets.instance.enemyAssets.enemyAtlasRegion.getRegionHeight(),
-                false,
-                false);
+        Util.drawTextureRegion(batch, Assets.instance.enemyAssets.enemyAtlasRegion,
+                new Vector2(100,100), Constants.ENEMY_CENTER
+                );
+
         batch.end();
         gigaGal.render(batch);
 
