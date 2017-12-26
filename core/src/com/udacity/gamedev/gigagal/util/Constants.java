@@ -35,6 +35,9 @@ public class Constants {
     public static final String WALK_3_LEFT = "walk-3-left";
     public static final String WALK_3_RIGHT = "walk-3-right";
 
+    public static final String ENEMY = "enemy";
+    public static final Vector2 ENEMY_CENTER = new Vector2(14,22);
+
     //Gigagal's eye postion within her sprites
     public static  final Vector2 GIGAGAL_EYE_POSITION = new Vector2(16,24);
 
@@ -65,4 +68,5 @@ public class Constants {
     public static final float GIGAGAL_STANCE_WIDTH =  21.0f;
 
     public static final float CAMERA_MOVE_SPEED =  100.0f;
+
 }

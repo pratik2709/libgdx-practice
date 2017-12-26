@@ -18,6 +18,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public PlatformAssets platformAssets;
 
+    public EnemyAssets enemyAssets;
+
     private AssetManager assetManager;
 
 
@@ -32,6 +34,7 @@ public class Assets implements Disposable, AssetErrorListener {
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
         gigaGalAssets = new GigaGalAssets(atlas);
         platformAssets = new PlatformAssets(atlas);
+        enemyAssets = new EnemyAssets(atlas);
     }
 
     @Override
