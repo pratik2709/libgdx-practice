@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.udacity.gamedev.gigagal.Level;
 import com.udacity.gamedev.gigagal.util.Assets;
 import com.udacity.gamedev.gigagal.util.Constants;
 import com.udacity.gamedev.gigagal.util.Util;
@@ -42,7 +44,10 @@ public class GigaGal {
 
     long walkStartTime;
 
-    public GigaGal(Vector2 position) {
+    Level level;
+
+    public GigaGal(Vector2 position, Level level) {
+        this.level = level;
         this.spawnLocation = position;
         gigagalPosition = new Vector2();
         lastFramePosition = new Vector2();
@@ -96,7 +101,6 @@ public class GigaGal {
 
     public void update(float delta, Array<Platform> platforms) {
 
-//        System.out.println(gigagalPosition.y);
         //last frame position
         lastFramePosition.set(gigagalPosition);
 
@@ -115,16 +119,6 @@ public class GigaGal {
         if ((jumpState != JumpState.JUMPING)) {
             jumpState = JumpState.FALLING;
 
-            //check if landed on the ground
-            //??
-            //remove the ground
-//            if (gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < 0) {
-//                jumpState = JumpState.GROUNDED;
-//                gigagalPosition.y = Constants.GIGAGAL_EYE_HEIGHT;
-//                velocity.y = 0;
-//            }
-
-//            System.out.println(platforms.size);
             //check if landed on the platform
             for (Platform platform : platforms) {
                 if (landedOnPlatform(platform)) {
@@ -133,6 +127,29 @@ public class GigaGal {
                     gigagalPosition.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
                 }
             }
+        }
+
+        //collision code
+        Rectangle gigagalRectangle = new Rectangle(gigagalPosition.x - Constants.GIGAGAL_STANCE_WIDTH/2,
+                gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT,
+                Constants.GIGAGAL_STANCE_WIDTH,
+                Constants.GIGAGAL_HEIGHT);
+
+        for(Enemy enemy: level.getEnemies()){
+            Rectangle enemyRectangle = new Rectangle(enemy.enemyPosition.x - Constants.ENEMY_COLLISION_RADIUS,
+                    enemy.enemyPosition.y - Constants.ENEMY_COLLISION_RADIUS,
+                    2 * Constants.ENEMY_COLLISION_RADIUS,
+                    2 * Constants.ENEMY_COLLISION_RADIUS
+                    );
+            if(gigagalRectangle.overlaps(enemyRectangle)){
+                if(gigagalPosition.x < enemy.enemyPosition.x){
+                    System.out.println("from left");
+                }
+                else{
+                    System.out.println("from right");
+                }
+            }
+
         }
 
 

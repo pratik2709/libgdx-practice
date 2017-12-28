@@ -31,9 +31,9 @@ public class Level {
         platformArray.add(new Platform(200, 200, 9, 9));
         platformArray.add(new Platform(280, 100, 30, 9));
 
-        gigaGal = new GigaGal(new Vector2(80, 110));
+        gigaGal = new GigaGal(new Vector2(80, 110), this);
         enemies = new DelayedRemovalArray<Enemy>();
-        enemies.add(new Enemy(new Platform(15, 100, 30, 20)));
+        enemies.add(new Enemy(new Platform(100, 110, 30, 9)));
     }
 
     public void render(SpriteBatch batch) {
@@ -58,5 +58,9 @@ public class Level {
             Enemy enemy = enemies.get(i);
             enemy.update(delta);
         }
+    }
+
+    public DelayedRemovalArray<Enemy> getEnemies() {
+        return enemies;
     }
 }
