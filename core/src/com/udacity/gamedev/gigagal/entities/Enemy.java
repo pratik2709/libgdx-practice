@@ -5,11 +5,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.udacity.gamedev.gigagal.util.Assets;
-import com.udacity.gamedev.gigagal.util.Enums.Direction;
 import com.udacity.gamedev.gigagal.util.Constants;
+import com.udacity.gamedev.gigagal.util.Enums.Direction;
 import com.udacity.gamedev.gigagal.util.Util;
-
-import static java.lang.Math.PI;
 
 public class Enemy {
 
@@ -48,6 +46,7 @@ public class Enemy {
         }
 
         final float elapsedTime = Util.secondsSince(startTime);
+        //??
         final float bobMultiplier = 1 + MathUtils.sin(MathUtils.PI2 *
                 elapsedTime/Constants.ENEMY_BOB_PERIOD);
 
