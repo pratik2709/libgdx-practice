@@ -47,6 +47,7 @@ public class Constants {
     //float constant for gigagal's eye above her feet
     public static final float GIGAGAL_EYE_HEIGHT = 16.0f;
     public static final float GIGAGAL_HEIGHT = 23.0f;
+    public static final Vector2 GIGAGAL_KICKBACK_VELOCITY = new Vector2(200,200);
 
     //walk loop duration
     public static final float WALK_LOOP_DURATION = 0.25f;

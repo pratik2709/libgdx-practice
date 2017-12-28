@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.udacity.gamedev.gigagal.Level;
 import com.udacity.gamedev.gigagal.util.Assets;
 import com.udacity.gamedev.gigagal.util.Constants;
+import com.udacity.gamedev.gigagal.util.Enums;
 import com.udacity.gamedev.gigagal.util.Util;
 
 import static com.badlogic.gdx.Input.Keys.LEFT;
@@ -59,7 +60,7 @@ public class GigaGal {
     public void init(){
         gigagalPosition.set(spawnLocation);
         lastFramePosition.set(gigagalPosition);
-        velocity.y = 0;
+        velocity.setZero();
         jumpState = JumpState.FALLING;
         facingDirection = Facing.RIGHT;
         walkState = WalkState.STANDING;
@@ -91,6 +92,7 @@ public class GigaGal {
         }
 
         batch.begin();
+
         Util.drawTextureRegion(batch, region,  gigagalPosition, Constants.GIGAGAL_EYE_POSITION);
         batch.end();
     }
@@ -143,10 +145,10 @@ public class GigaGal {
                     );
             if(gigagalRectangle.overlaps(enemyRectangle)){
                 if(gigagalPosition.x < enemy.enemyPosition.x){
-                    System.out.println("from left");
+                    recoilFromEnemy(Enums.Direction.LEFT);
                 }
                 else{
-                    System.out.println("from right");
+                    recoilFromEnemy(Enums.Direction.RIGHT);
                 }
             }
 
@@ -177,6 +179,20 @@ public class GigaGal {
             walkState = WalkState.STANDING;
         }
     }
+
+    private void recoilFromEnemy(Enums.Direction direction) {
+        velocity.y = Constants.GIGAGAL_KICKBACK_VELOCITY.y;
+
+        if(direction == Enums.Direction.LEFT){
+            velocity.x = -Constants.GIGAGAL_KICKBACK_VELOCITY.x;
+        }
+        else if(direction == Enums.Direction.RIGHT){
+            velocity.x = Constants.GIGAGAL_KICKBACK_VELOCITY.x;
+        }
+
+
+    }
+
 
     private boolean landedOnPlatform(Platform platform) {
         boolean leftFootIn = false;
