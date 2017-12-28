@@ -119,13 +119,18 @@ public class GigaGal {
 
         //if not jumping then means falling
         if ((jumpState != JumpState.JUMPING)) {
-            jumpState = JumpState.FALLING;
+
+            if(jumpState != JumpState.RECOILING){
+                jumpState = JumpState.FALLING;
+            }
+
 
             //check if landed on the platform
             for (Platform platform : platforms) {
                 if (landedOnPlatform(platform)) {
                     jumpState = JumpState.GROUNDED;
                     velocity.y = 0;
+                    velocity.x = 0;
                     gigagalPosition.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
                 }
             }
@@ -169,10 +174,11 @@ public class GigaGal {
         } else {
             endJump();
         }
-        if (Gdx.input.isKeyPressed(RIGHT)) {
+
+        if (Gdx.input.isKeyPressed(RIGHT) && jumpState != JumpState.RECOILING) {
 
             moveRight(delta);
-        } else if (Gdx.input.isKeyPressed(LEFT)) {
+        } else if (Gdx.input.isKeyPressed(LEFT) && jumpState != JumpState.RECOILING) {
             moveLeft(delta);
         } else {
             // no left and right so stand right there
@@ -181,6 +187,7 @@ public class GigaGal {
     }
 
     private void recoilFromEnemy(Enums.Direction direction) {
+        jumpState = JumpState.RECOILING;
         velocity.y = Constants.GIGAGAL_KICKBACK_VELOCITY.y;
 
         if(direction == Enums.Direction.LEFT){
@@ -266,7 +273,7 @@ public class GigaGal {
     }
 
     enum JumpState {
-        JUMPING, FALLING, GROUNDED
+        JUMPING, FALLING, GROUNDED, RECOILING
     }
 
     enum Facing {
