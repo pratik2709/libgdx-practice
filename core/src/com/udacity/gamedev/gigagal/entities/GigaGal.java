@@ -120,6 +120,7 @@ public class GigaGal {
         //if not jumping then means falling
         if ((jumpState != JumpState.JUMPING)) {
 
+            //??
             if(jumpState != JumpState.RECOILING){
                 jumpState = JumpState.FALLING;
             }
