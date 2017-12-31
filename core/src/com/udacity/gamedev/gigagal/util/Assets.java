@@ -20,6 +20,10 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public EnemyAssets enemyAssets;
 
+    public BulletAssets bulletAssets;
+    public ExplosionAssets explosionAssets;
+    public PowerupAssets powerupAssets;
+
     private AssetManager assetManager;
 
 
@@ -35,6 +39,9 @@ public class Assets implements Disposable, AssetErrorListener {
         gigaGalAssets = new GigaGalAssets(atlas);
         platformAssets = new PlatformAssets(atlas);
         enemyAssets = new EnemyAssets(atlas);
+        bulletAssets = new BulletAssets(atlas);
+        explosionAssets = new ExplosionAssets(atlas);
+        powerupAssets = new PowerupAssets(atlas);
     }
 
     @Override
