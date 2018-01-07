@@ -32,6 +32,16 @@ public class Bullet {
                 break;
         }
 
+        for(Enemy enemy: level.getEnemies()){
+            if(position.x < enemy.enemyPosition.x + Constants.ENEMY_COLLISION_RADIUS
+                    && position.x > enemy.enemyPosition.x - Constants.ENEMY_COLLISION_RADIUS
+                    && position.y < enemy.enemyPosition.y + Constants.ENEMY_COLLISION_RADIUS
+                    && position.y > enemy.enemyPosition.y - Constants.ENEMY_COLLISION_RADIUS){
+                bulletActive = false;
+                enemy.healthCounter--;
+            }
+        }
+
         float worldWidth = level.getViewport().getWorldWidth();
         float cameraHorizontalPosition = level.getViewport().getCamera().position.x;
         //??

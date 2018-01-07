@@ -16,6 +16,7 @@ public class Enemy {
 
     private Direction direction;
     final long startTime;
+    public int healthCounter;
 
 
     public Enemy(Platform platform) {
@@ -25,6 +26,8 @@ public class Enemy {
 
         direction = Direction.RIGHT;
         startTime = TimeUtils.nanoTime();
+
+        healthCounter = Constants.ENEMY_HEALTH;
     }
 
     public void update(float delta) {
@@ -52,6 +55,8 @@ public class Enemy {
 
         enemyPosition.y = platform.top + Constants.ENEMY_CENTER.y +
                 (bobMultiplier * Constants.ENEMY_BOB_AMPLITUDE);
+
+
 
     }
 

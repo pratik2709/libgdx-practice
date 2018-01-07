@@ -58,21 +58,21 @@ public class Level {
             platform.render(batch);
         }
         //add an enemy
-        for(Enemy enemy: enemies){
+        for (Enemy enemy : enemies) {
             enemy.render(batch);
         }
 
         //render the bullets
-        for(Bullet bullet: bullets){
+        for (Bullet bullet : bullets) {
             bullet.render(batch);
         }
 
         Util.drawTextureRegion(batch, Assets.instance.bulletAssets.bulletRegion,
-                new Vector2(10,10), Constants.BULLET_CENTER
+                new Vector2(10, 10), Constants.BULLET_CENTER
         );
 
         Util.drawTextureRegion(batch, Assets.instance.powerupAssets.powerupRegion,
-                new Vector2(20,20), Constants.POWERUP_CENTER
+                new Vector2(20, 20), Constants.POWERUP_CENTER
         );
 
         TextureRegion region = Assets.instance.explosionAssets.explosionAnimation.getKeyFrame(
@@ -80,12 +80,11 @@ public class Level {
         );
 
         Util.drawTextureRegion(batch, region,
-                new Vector2(40,20), Constants.EXPLOSION_CENTER
+                new Vector2(40, 20), Constants.EXPLOSION_CENTER
         );
 
         batch.end();
         gigaGal.render(batch);
-
 
 
     }
@@ -94,29 +93,37 @@ public class Level {
         explosionStartTime = TimeUtils.nanoTime();
         gigaGal.update(delta, platformArray);
 
-        for(int i = 0; i < enemies.size; i++){
+        enemies.begin();
+
+        for (int i = 0; i < enemies.size; i++) {
             Enemy enemy = enemies.get(i);
             enemy.update(delta);
+            if(enemy.healthCounter < 1){
+                enemies.removeIndex(i);
+            }
         }
+        enemies.end();
+
 
 //        System.out.println(bullets.size);
         bullets.begin();
 
-        for(Bullet bullet : bullets){
+        for (Bullet bullet : bullets) {
             bullet.update(delta);
-            if(!bullet.getBulletActive()){
+            if (!bullet.getBulletActive()) {
                 bullets.removeValue(bullet, false);
             }
         }
         bullets.end();
+
     }
 
     public DelayedRemovalArray<Enemy> getEnemies() {
         return enemies;
     }
 
-    public void spawnBullet(Vector2 position, Enums.Direction direction){
-        bullets.add(new Bullet(this , position, direction));
+    public void spawnBullet(Vector2 position, Enums.Direction direction) {
+        bullets.add(new Bullet(this, position, direction));
     }
 
     public Viewport getViewport() {
