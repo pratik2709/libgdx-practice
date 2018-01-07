@@ -187,6 +187,8 @@ public class GigaGal {
         if(Gdx.input.isKeyJustPressed(X)){
             Vector2 bulletPosition;
             if(facingDirection == Enums.Direction.RIGHT){
+                //position tracks the eye and to get the canon position add the
+                // canon offset
                 bulletPosition = new Vector2(gigagalPosition.x + Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
                         gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
                 level.spawnBullet(bulletPosition, facingDirection);
