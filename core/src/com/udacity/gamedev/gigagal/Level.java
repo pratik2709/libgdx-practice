@@ -99,18 +99,6 @@ public class Level {
             enemy.update(delta);
         }
 
-        //spawn bullet in random direction
-        Enums.Direction direction;
-        if(MathUtils.randomBoolean()){
-            direction = Enums.Direction.LEFT;
-        }
-        else{
-            direction = Enums.Direction.RIGHT;
-        }
-
-        spawnBullet(new Vector2(MathUtils.random(viewport.getWorldWidth()),
-                        MathUtils.random(viewport.getWorldHeight())),
-                direction);
 
         for(int i = 0; i < bullets.size; i++){
             Bullet bullet = bullets.get(i);

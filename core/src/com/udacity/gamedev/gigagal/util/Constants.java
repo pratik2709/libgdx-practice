@@ -72,6 +72,8 @@ public class Constants {
     //gigagal's stance width ??
     public static final float GIGAGAL_STANCE_WIDTH =  21.0f;
 
+    public static final Vector2 GIGAGAL_EYE_BARREL_OFFSET = new Vector2(12,7);
+
     public static final float CAMERA_MOVE_SPEED =  100.0f;
 
     public static final int ENEMY_COLLISION_RADIUS = 15;

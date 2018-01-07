@@ -14,9 +14,7 @@ import com.udacity.gamedev.gigagal.util.Constants;
 import com.udacity.gamedev.gigagal.util.Enums;
 import com.udacity.gamedev.gigagal.util.Util;
 
-import static com.badlogic.gdx.Input.Keys.LEFT;
-import static com.badlogic.gdx.Input.Keys.RIGHT;
-import static com.badlogic.gdx.Input.Keys.Z;
+import static com.badlogic.gdx.Input.Keys.*;
 import static com.udacity.gamedev.gigagal.util.Constants.*;
 
 public class GigaGal {
@@ -32,7 +30,7 @@ public class GigaGal {
     Vector2 lastFramePosition;
 
     //facing member variable
-    Facing facingDirection;
+    Enums.Direction facingDirection;
 
     //velocity
     Vector2 velocity;
@@ -62,7 +60,7 @@ public class GigaGal {
         lastFramePosition.set(gigagalPosition);
         velocity.setZero();
         jumpState = JumpState.FALLING;
-        facingDirection = Facing.RIGHT;
+        facingDirection = Enums.Direction.RIGHT;
         walkState = WalkState.STANDING;
     }
 
@@ -70,20 +68,20 @@ public class GigaGal {
 
         TextureRegion region;
 
-        if (facingDirection == Facing.RIGHT && jumpState != JumpState.GROUNDED) {
+        if (facingDirection == Enums.Direction.RIGHT && jumpState != JumpState.GROUNDED) {
             region = Assets.instance.gigaGalAssets.jumpingRight;
-        } else if (facingDirection == Facing.RIGHT && walkState == WalkState.STANDING) {
+        } else if (facingDirection == Enums.Direction.RIGHT && walkState == WalkState.STANDING) {
             region = Assets.instance.gigaGalAssets.standingRight;
-        } else if (facingDirection == Facing.RIGHT && walkState == WalkState.WALKING) {
+        } else if (facingDirection == Enums.Direction.RIGHT && walkState == WalkState.WALKING) {
             //how long we
             float walkElapsed = secondsSince();
 
             region = Assets.instance.gigaGalAssets.walkingRightAnimation.getKeyFrame(walkElapsed);
-        } else if (facingDirection == Facing.LEFT && jumpState != JumpState.GROUNDED) {
+        } else if (facingDirection == Enums.Direction.LEFT && jumpState != JumpState.GROUNDED) {
             region = Assets.instance.gigaGalAssets.jumpingLeft;
-        } else if (facingDirection == Facing.LEFT && walkState == WalkState.STANDING) {
+        } else if (facingDirection == Enums.Direction.LEFT && walkState == WalkState.STANDING) {
             region = Assets.instance.gigaGalAssets.standingLeft;
-        } else if (facingDirection == Facing.LEFT && walkState == WalkState.WALKING) {
+        } else if (facingDirection == Enums.Direction.LEFT && walkState == WalkState.WALKING) {
             float walkElapsed = secondsSince();
 
             region = Assets.instance.gigaGalAssets.walkingLeftAnimation.getKeyFrame(walkElapsed);
@@ -185,6 +183,22 @@ public class GigaGal {
             // no left and right so stand right there
             walkState = WalkState.STANDING;
         }
+
+        if(Gdx.input.isKeyJustPressed(X)){
+            Vector2 bulletPosition;
+            if(facingDirection == Enums.Direction.RIGHT){
+                bulletPosition = new Vector2(gigagalPosition.x + Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
+                        gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
+                level.spawnBullet(bulletPosition, facingDirection);
+            }
+            else{
+                bulletPosition = new Vector2(gigagalPosition.x - Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
+                        gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
+                level.spawnBullet(bulletPosition, facingDirection);
+
+            }
+
+        }
     }
 
     private void recoilFromEnemy(Enums.Direction direction) {
@@ -259,7 +273,7 @@ public class GigaGal {
             walkStartTime = TimeUtils.nanoTime();
         }
         walkState = WalkState.WALKING;
-        facingDirection = Facing.RIGHT;
+        facingDirection = facingDirection.RIGHT;
         gigagalPosition.x += delta * GIGAGAL_MOVE_SPEED;
 
     }
@@ -269,7 +283,7 @@ public class GigaGal {
             walkStartTime = TimeUtils.nanoTime();
         }
         walkState = WalkState.WALKING;
-        facingDirection = Facing.LEFT;
+        facingDirection = facingDirection.LEFT;
         gigagalPosition.x -= delta * GIGAGAL_MOVE_SPEED;
     }
 
