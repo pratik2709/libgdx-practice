@@ -33,12 +33,10 @@ public class Bullet {
         }
 
         for(Enemy enemy: level.getEnemies()){
-            if(position.x < enemy.enemyPosition.x + Constants.ENEMY_COLLISION_RADIUS
-                    && position.x > enemy.enemyPosition.x - Constants.ENEMY_COLLISION_RADIUS
-                    && position.y < enemy.enemyPosition.y + Constants.ENEMY_COLLISION_RADIUS
-                    && position.y > enemy.enemyPosition.y - Constants.ENEMY_COLLISION_RADIUS){
+            //??
+            if(position.dst(enemy.enemyPosition) < Constants.ENEMY_COLLISION_RADIUS){
                 bulletActive = false;
-                enemy.healthCounter--;
+                enemy.healthCounter -= 1;
             }
         }
 
