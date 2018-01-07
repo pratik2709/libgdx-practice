@@ -99,7 +99,7 @@ public class Level {
             enemy.update(delta);
         }
 
-        System.out.println(bullets.size);
+//        System.out.println(bullets.size);
         bullets.begin();
 
         for(Bullet bullet : bullets){

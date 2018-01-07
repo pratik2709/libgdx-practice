@@ -36,7 +36,7 @@ public class Bullet {
         float cameraHorizontalPosition = level.getViewport().getCamera().position.x;
         //??
         if(position.x > cameraHorizontalPosition + worldWidth/2 ||
-                cameraHorizontalPosition < cameraHorizontalPosition - worldWidth/2){
+                position.x < cameraHorizontalPosition - worldWidth/2){
             bulletActive = false;
         }
     }
