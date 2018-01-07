@@ -31,15 +31,16 @@ public class GameplayScreen extends ScreenAdapter {
 
     @Override
     public void show(){
+        extendViewport = new ExtendViewport(WORLD_SIZE, WORLD_SIZE);
         //Assets
         AssetManager am = new AssetManager();
         Assets.instance.init(am);
 
-        level = new Level();
+        level = new Level(extendViewport);
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
         renderer.setAutoShapeType(true);
-        extendViewport = new ExtendViewport(WORLD_SIZE, WORLD_SIZE);
+
         chaseCamera = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
     }
 

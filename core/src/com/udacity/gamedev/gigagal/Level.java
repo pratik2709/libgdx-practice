@@ -1,20 +1,34 @@
 package com.udacity.gamedev.gigagal;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.udacity.gamedev.gigagal.entities.Bullet;
 import com.udacity.gamedev.gigagal.entities.Enemy;
 import com.udacity.gamedev.gigagal.entities.GigaGal;
 import com.udacity.gamedev.gigagal.entities.Platform;
+import com.udacity.gamedev.gigagal.util.Assets;
+import com.udacity.gamedev.gigagal.util.Constants;
+import com.udacity.gamedev.gigagal.util.Enums;
+import com.udacity.gamedev.gigagal.util.Util;
 
 
 public class Level {
     GigaGal gigaGal;
     Array<Platform> platformArray;
+    long explosionStartTime;
     private DelayedRemovalArray<Enemy> enemies;
+    private DelayedRemovalArray<Bullet> bullets;
+    private Viewport viewport;
 
-    public Level() {
+
+    public Level(Viewport viewport) {
+        this.viewport = viewport;
         platformArray = new Array<Platform>();
         addDebugPlatform();
     }
@@ -34,6 +48,8 @@ public class Level {
         gigaGal = new GigaGal(new Vector2(15, 100), this);
         enemies = new DelayedRemovalArray<Enemy>();
         enemies.add(new Enemy(new Platform(100, 110, 30, 9)));
+        bullets = new DelayedRemovalArray<Bullet>();
+//        bullets.add(spawnBullet(););
     }
 
     public void render(SpriteBatch batch) {
@@ -45,22 +61,68 @@ public class Level {
         for(Enemy enemy: enemies){
             enemy.render(batch);
         }
+
+        //render the bullets
+        for(Bullet bullet: bullets){
+            bullet.render(batch);
+        }
+
+        Util.drawTextureRegion(batch, Assets.instance.bulletAssets.bulletRegion,
+                new Vector2(10,10), Constants.BULLET_CENTER
+        );
+
+        Util.drawTextureRegion(batch, Assets.instance.powerupAssets.powerupRegion,
+                new Vector2(20,20), Constants.POWERUP_CENTER
+        );
+
+        TextureRegion region = Assets.instance.explosionAssets.explosionAnimation.getKeyFrame(
+                Util.secondsSince(explosionStartTime)
+        );
+
+        Util.drawTextureRegion(batch, region,
+                new Vector2(40,20), Constants.EXPLOSION_CENTER
+        );
+
         batch.end();
         gigaGal.render(batch);
+
+
 
     }
 
     public void update(float delta) {
-
+        explosionStartTime = TimeUtils.nanoTime();
         gigaGal.update(delta, platformArray);
 
         for(int i = 0; i < enemies.size; i++){
             Enemy enemy = enemies.get(i);
             enemy.update(delta);
         }
+
+        //spawn bullet in random direction
+        Enums.Direction direction;
+        if(MathUtils.randomBoolean()){
+            direction = Enums.Direction.LEFT;
+        }
+        else{
+            direction = Enums.Direction.RIGHT;
+        }
+
+        spawnBullet(new Vector2(MathUtils.random(viewport.getWorldWidth()),
+                        MathUtils.random(viewport.getWorldHeight())),
+                direction);
+
+        for(int i = 0; i < bullets.size; i++){
+            Bullet bullet = bullets.get(i);
+            bullet.update(delta);
+        }
     }
 
     public DelayedRemovalArray<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public void spawnBullet(Vector2 position, Enums.Direction direction){
+        bullets.add(new Bullet(position, direction));
     }
 }

@@ -90,4 +90,5 @@ public class Constants {
     // TODO: Note the constants we've added for the powerups
     public static final String POWERUP_SPRITE = "powerup";
     public static final Vector2 POWERUP_CENTER = new Vector2(7, 5);
+    public static final float BULLET_MOVE_SPEED = 150;
 }

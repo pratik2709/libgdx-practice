@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class ExplosionAssets {
 
-    Animation<TextureRegion> explosionAnimation;
+    public Animation<TextureRegion> explosionAnimation;
 
     public ExplosionAssets(TextureAtlas atlas) {
 
