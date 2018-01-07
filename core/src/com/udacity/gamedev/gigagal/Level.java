@@ -99,11 +99,16 @@ public class Level {
             enemy.update(delta);
         }
 
+        System.out.println(bullets.size);
+        bullets.begin();
 
-        for(int i = 0; i < bullets.size; i++){
-            Bullet bullet = bullets.get(i);
+        for(Bullet bullet : bullets){
             bullet.update(delta);
+            if(!bullet.getBulletActive()){
+                bullets.removeValue(bullet, false);
+            }
         }
+        bullets.end();
     }
 
     public DelayedRemovalArray<Enemy> getEnemies() {
@@ -111,6 +116,10 @@ public class Level {
     }
 
     public void spawnBullet(Vector2 position, Enums.Direction direction){
-        bullets.add(new Bullet(position, direction));
+        bullets.add(new Bullet(this , position, direction));
+    }
+
+    public Viewport getViewport() {
+        return viewport;
     }
 }
