@@ -17,8 +17,8 @@ public class ExplosionAssets {
         explosionFrames.add(atlas.findRegion(Constants.EXPLOSION_SMALL));
         explosionFrames.add(atlas.findRegion(Constants.EXPLOSION_MEDIUM));
 
-        explosionAnimation = new Animation<TextureRegion>(Constants.EXPLOSION_DURATION,
+        explosionAnimation = new Animation<TextureRegion>(Constants.EXPLOSION_DURATION/ explosionFrames.size,
                 explosionFrames,
-                Animation.PlayMode.LOOP);
+                Animation.PlayMode.NORMAL);
     }
 }

@@ -12,7 +12,7 @@ import com.udacity.gamedev.gigagal.util.Util;
 public class Enemy {
 
     Platform platform;
-    Vector2 enemyPosition;
+    public Vector2 enemyPosition;
 
     private Direction direction;
     final long startTime;

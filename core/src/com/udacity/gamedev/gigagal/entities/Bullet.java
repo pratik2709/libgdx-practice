@@ -35,6 +35,7 @@ public class Bullet {
         for(Enemy enemy: level.getEnemies()){
             //??
             if(position.dst(enemy.enemyPosition) < Constants.ENEMY_COLLISION_RADIUS){
+                level.spawnExplosion(enemy.enemyPosition);
                 bulletActive = false;
                 enemy.healthCounter -= 1;
             }

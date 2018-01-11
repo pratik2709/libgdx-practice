@@ -2,16 +2,12 @@ package com.udacity.gamedev.gigagal;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.udacity.gamedev.gigagal.entities.Bullet;
-import com.udacity.gamedev.gigagal.entities.Enemy;
-import com.udacity.gamedev.gigagal.entities.GigaGal;
-import com.udacity.gamedev.gigagal.entities.Platform;
+import com.udacity.gamedev.gigagal.entities.*;
 import com.udacity.gamedev.gigagal.util.Assets;
 import com.udacity.gamedev.gigagal.util.Constants;
 import com.udacity.gamedev.gigagal.util.Enums;
@@ -24,6 +20,7 @@ public class Level {
     long explosionStartTime;
     private DelayedRemovalArray<Enemy> enemies;
     private DelayedRemovalArray<Bullet> bullets;
+    private DelayedRemovalArray<Explosion> explosions;
     private Viewport viewport;
 
 
@@ -49,7 +46,7 @@ public class Level {
         enemies = new DelayedRemovalArray<Enemy>();
         enemies.add(new Enemy(new Platform(100, 110, 30, 9)));
         bullets = new DelayedRemovalArray<Bullet>();
-//        bullets.add(spawnBullet(););
+        explosions = new DelayedRemovalArray<Explosion>();
     }
 
     public void render(SpriteBatch batch) {
@@ -67,21 +64,25 @@ public class Level {
             bullet.render(batch);
         }
 
-        Util.drawTextureRegion(batch, Assets.instance.bulletAssets.bulletRegion,
-                new Vector2(10, 10), Constants.BULLET_CENTER
-        );
+//        Util.drawTextureRegion(batch, Assets.instance.bulletAssets.bulletRegion,
+//                new Vector2(10, 10), Constants.BULLET_CENTER
+//        );
+//
+//        Util.drawTextureRegion(batch, Assets.instance.powerupAssets.powerupRegion,
+//                new Vector2(20, 20), Constants.POWERUP_CENTER
+//        );
+//
+//        TextureRegion region = Assets.instance.explosionAssets.explosionAnimation.getKeyFrame(
+//                Util.secondsSince(explosionStartTime)
+//        );
+//
+//        Util.drawTextureRegion(batch, region,
+//                new Vector2(40, 20), Constants.EXPLOSION_CENTER
+//        );
 
-        Util.drawTextureRegion(batch, Assets.instance.powerupAssets.powerupRegion,
-                new Vector2(20, 20), Constants.POWERUP_CENTER
-        );
-
-        TextureRegion region = Assets.instance.explosionAssets.explosionAnimation.getKeyFrame(
-                Util.secondsSince(explosionStartTime)
-        );
-
-        Util.drawTextureRegion(batch, region,
-                new Vector2(40, 20), Constants.EXPLOSION_CENTER
-        );
+        for(Explosion explosion: explosions){
+            explosion.render(batch);
+        }
 
         batch.end();
         gigaGal.render(batch);
@@ -99,6 +100,7 @@ public class Level {
             Enemy enemy = enemies.get(i);
             enemy.update(delta);
             if(enemy.healthCounter < 1){
+                spawnExplosion(enemy.enemyPosition);
                 enemies.removeIndex(i);
             }
         }
@@ -116,6 +118,15 @@ public class Level {
         }
         bullets.end();
 
+        //explosions
+        explosions.begin();
+        for(Explosion explosion: explosions){
+            if(explosion.isFinished()){
+                explosions.removeValue(explosion, false);
+            }
+        }
+        explosions.end();
+
     }
 
     public DelayedRemovalArray<Enemy> getEnemies() {
@@ -126,7 +137,12 @@ public class Level {
         bullets.add(new Bullet(this, position, direction));
     }
 
+    public void spawnExplosion(Vector2 position){
+        explosions.add(new Explosion(position));
+    }
+
     public Viewport getViewport() {
+
         return viewport;
     }
 }
