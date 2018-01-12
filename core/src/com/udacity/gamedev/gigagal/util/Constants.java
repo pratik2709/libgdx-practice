@@ -92,8 +92,16 @@ public class Constants {
     public static final Vector2 EXPLOSION_CENTER = new Vector2(8, 8);
     public static final float EXPLOSION_DURATION = 0.5f;
 
+
+    public static final float BULLET_MOVE_SPEED = 150;
+
     // TODO: Note the constants we've added for the powerups
     public static final String POWERUP_SPRITE = "powerup";
     public static final Vector2 POWERUP_CENTER = new Vector2(7, 5);
-    public static final float BULLET_MOVE_SPEED = 150;
+    public static final int POWERUP_COLLISION_RADIUS =1;
+    //constant for initial ammo
+    public static final int INITIAL_AMMO = 5;
+
+    // constant for ammo powerup
+    public static final int AMMO_POWERUP = 5;
 }

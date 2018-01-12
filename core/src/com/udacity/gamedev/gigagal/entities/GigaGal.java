@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.udacity.gamedev.gigagal.Level;
 import com.udacity.gamedev.gigagal.util.Assets;
@@ -43,6 +44,8 @@ public class GigaGal {
 
     long walkStartTime;
 
+    int ammoCount;
+
     Level level;
 
     public GigaGal(Vector2 position, Level level) {
@@ -55,13 +58,14 @@ public class GigaGal {
         init();
     }
 
-    public void init(){
+    public void init() {
         gigagalPosition.set(spawnLocation);
         lastFramePosition.set(gigagalPosition);
         velocity.setZero();
         jumpState = JumpState.FALLING;
         facingDirection = Enums.Direction.RIGHT;
         walkState = WalkState.STANDING;
+        ammoCount = Constants.INITIAL_AMMO;
     }
 
     public void render(SpriteBatch batch) {
@@ -91,7 +95,7 @@ public class GigaGal {
 
         batch.begin();
 
-        Util.drawTextureRegion(batch, region,  gigagalPosition, Constants.GIGAGAL_EYE_POSITION);
+        Util.drawTextureRegion(batch, region, gigagalPosition, Constants.GIGAGAL_EYE_POSITION);
         batch.end();
     }
 
@@ -111,7 +115,7 @@ public class GigaGal {
         //apply velocity to position
         gigagalPosition.mulAdd(velocity, delta);
 
-        if(gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < Constants.KILL_PLANE){
+        if (gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < Constants.KILL_PLANE) {
             init();
         }
 
@@ -119,7 +123,7 @@ public class GigaGal {
         if ((jumpState != JumpState.JUMPING)) {
 
             //??
-            if(jumpState != JumpState.RECOILING){
+            if (jumpState != JumpState.RECOILING) {
                 jumpState = JumpState.FALLING;
             }
 
@@ -136,22 +140,21 @@ public class GigaGal {
         }
 
         //collision code
-        Rectangle gigagalRectangle = new Rectangle(gigagalPosition.x - Constants.GIGAGAL_STANCE_WIDTH/2,
+        Rectangle gigagalRectangle = new Rectangle(gigagalPosition.x - Constants.GIGAGAL_STANCE_WIDTH / 2,
                 gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT,
                 Constants.GIGAGAL_STANCE_WIDTH,
                 Constants.GIGAGAL_HEIGHT);
 
-        for(Enemy enemy: level.getEnemies()){
+        for (Enemy enemy : level.getEnemies()) {
             Rectangle enemyRectangle = new Rectangle(enemy.enemyPosition.x - Constants.ENEMY_COLLISION_RADIUS,
                     enemy.enemyPosition.y - Constants.ENEMY_COLLISION_RADIUS,
                     2 * Constants.ENEMY_COLLISION_RADIUS,
                     2 * Constants.ENEMY_COLLISION_RADIUS
-                    );
-            if(gigagalRectangle.overlaps(enemyRectangle)){
-                if(gigagalPosition.x < enemy.enemyPosition.x){
+            );
+            if (gigagalRectangle.overlaps(enemyRectangle)) {
+                if (gigagalPosition.x < enemy.enemyPosition.x) {
                     recoilFromEnemy(Enums.Direction.LEFT);
-                }
-                else{
+                } else {
                     recoilFromEnemy(Enums.Direction.RIGHT);
                 }
             }
@@ -184,33 +187,56 @@ public class GigaGal {
             walkState = WalkState.STANDING;
         }
 
-        if(Gdx.input.isKeyJustPressed(X)){
-            Vector2 bulletPosition;
-            if(facingDirection == Enums.Direction.RIGHT){
-                //position tracks the eye and to get the canon position add the
-                // canon offset
-                bulletPosition = new Vector2(gigagalPosition.x + Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
-                        gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
-                level.spawnBullet(bulletPosition, facingDirection);
-            }
-            else{
-                bulletPosition = new Vector2(gigagalPosition.x - Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
-                        gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
-                level.spawnBullet(bulletPosition, facingDirection);
+        handlePowerups(gigagalRectangle);
+
+            if (Gdx.input.isKeyJustPressed(X) && ammoCount > 0) {
+                Vector2 bulletPosition;
+                ammoCount -= 1;
+                if (facingDirection == Enums.Direction.RIGHT) {
+                    //position tracks the eye and to get the canon position add the
+                    // canon offset
+                    bulletPosition = new Vector2(gigagalPosition.x + Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
+                            gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
+                    level.spawnBullet(bulletPosition, facingDirection);
+                } else {
+                    bulletPosition = new Vector2(gigagalPosition.x - Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
+                            gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
+                    level.spawnBullet(bulletPosition, facingDirection);
+
+                }
 
             }
 
+    }
+
+    private void handlePowerups(Rectangle gigagalRectangle) {
+        //detect collision with powerup
+        //remove picked up powerups
+        DelayedRemovalArray<Powerup> powerups = level.getPowerups();
+        powerups.begin();
+        for (Powerup powerup : powerups) {
+            Rectangle powerupRectangle = new Rectangle(
+                    powerup.position.x - Constants.POWERUP_CENTER.x,
+                    powerup.position.y - Constants.POWERUP_CENTER.y,
+                    Assets.instance.powerupAssets.powerupRegion.getRegionWidth(),
+                    Assets.instance.powerupAssets.powerupRegion.getRegionHeight()
+            );
+
+            if (gigagalRectangle.overlaps(powerupRectangle)) {
+                ammoCount += Constants.AMMO_POWERUP;
+                powerups.removeValue(powerup, false);
+            }
         }
+        powerups.end();
     }
 
     private void recoilFromEnemy(Enums.Direction direction) {
         jumpState = JumpState.RECOILING;
         velocity.y = Constants.GIGAGAL_KICKBACK_VELOCITY.y;
 
-        if(direction == Enums.Direction.LEFT){
+        if (direction == Enums.Direction.LEFT) {
             velocity.x = -Constants.GIGAGAL_KICKBACK_VELOCITY.x;
-        }
-        else if(direction == Enums.Direction.RIGHT){
+        } else if (direction == Enums.Direction.RIGHT) {
             velocity.x = Constants.GIGAGAL_KICKBACK_VELOCITY.x;
         }
 

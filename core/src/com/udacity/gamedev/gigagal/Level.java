@@ -1,17 +1,13 @@
 package com.udacity.gamedev.gigagal;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.udacity.gamedev.gigagal.entities.*;
-import com.udacity.gamedev.gigagal.util.Assets;
-import com.udacity.gamedev.gigagal.util.Constants;
 import com.udacity.gamedev.gigagal.util.Enums;
-import com.udacity.gamedev.gigagal.util.Util;
 
 
 public class Level {
@@ -21,6 +17,7 @@ public class Level {
     private DelayedRemovalArray<Enemy> enemies;
     private DelayedRemovalArray<Bullet> bullets;
     private DelayedRemovalArray<Explosion> explosions;
+    private DelayedRemovalArray<Powerup> powerups;
     private Viewport viewport;
 
 
@@ -47,6 +44,8 @@ public class Level {
         enemies.add(new Enemy(new Platform(100, 110, 30, 9)));
         bullets = new DelayedRemovalArray<Bullet>();
         explosions = new DelayedRemovalArray<Explosion>();
+        powerups = new DelayedRemovalArray<Powerup>();
+        powerups.add(new Powerup(new Vector2(50, 150)));
     }
 
     public void render(SpriteBatch batch) {
@@ -54,6 +53,11 @@ public class Level {
         for (Platform platform : platformArray) {
             platform.render(batch);
         }
+
+        for (Powerup powerup: powerups){
+            powerup.render(batch);
+        }
+
         //add an enemy
         for (Enemy enemy : enemies) {
             enemy.render(batch);
@@ -64,21 +68,6 @@ public class Level {
             bullet.render(batch);
         }
 
-//        Util.drawTextureRegion(batch, Assets.instance.bulletAssets.bulletRegion,
-//                new Vector2(10, 10), Constants.BULLET_CENTER
-//        );
-//
-//        Util.drawTextureRegion(batch, Assets.instance.powerupAssets.powerupRegion,
-//                new Vector2(20, 20), Constants.POWERUP_CENTER
-//        );
-//
-//        TextureRegion region = Assets.instance.explosionAssets.explosionAnimation.getKeyFrame(
-//                Util.secondsSince(explosionStartTime)
-//        );
-//
-//        Util.drawTextureRegion(batch, region,
-//                new Vector2(40, 20), Constants.EXPLOSION_CENTER
-//        );
 
         for(Explosion explosion: explosions){
             explosion.render(batch);
@@ -144,5 +133,9 @@ public class Level {
     public Viewport getViewport() {
 
         return viewport;
+    }
+
+    public DelayedRemovalArray<Powerup> getPowerups() {
+        return powerups;
     }
 }

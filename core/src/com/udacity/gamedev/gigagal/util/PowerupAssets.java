@@ -7,6 +7,7 @@ public class PowerupAssets {
     public final TextureAtlas.AtlasRegion powerupRegion;
 
     public PowerupAssets(TextureAtlas atlas) {
+
         powerupRegion = atlas.findRegion(Constants.POWERUP_SPRITE);
     }
 }
