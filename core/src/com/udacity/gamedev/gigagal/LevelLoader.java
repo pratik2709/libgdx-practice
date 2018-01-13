@@ -2,6 +2,7 @@ package com.udacity.gamedev.gigagal;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.udacity.gamedev.gigagal.entities.Enemy;
@@ -25,10 +26,6 @@ public class LevelLoader {
 
         Level level = new Level(extendViewport);
 
-//        DelayedRemovalArray<Enemy> enemies = level.getEnemies();
-//        enemies.add(new Enemy(new Platform(10,10,10,10)));
-//        Gdx.app.log(TAG, level.getEnemies().toString());
-
         FileHandle filehandle = Gdx.files.internal(pathToLevelFile);
         JSONParser jsonParser = new JSONParser();
 
@@ -41,6 +38,9 @@ public class LevelLoader {
             JSONArray platforms = (JSONArray) composite.get(Constants.LEVEL_9PATCHES);
             loadPlatforms(platforms, level);
 
+            JSONArray nonPlatformObjects = (JSONArray) composite.get(Constants.LEVEL_IMAGES);
+            loadNonPlatformEntities(nonPlatformObjects, level);
+
         } catch (Exception ex){
             //log level ??
             Gdx.app.error(TAG, ex.getMessage());
@@ -48,6 +48,33 @@ public class LevelLoader {
         }
 
         return level;
+    }
+
+    private static void loadNonPlatformEntities(JSONArray nonPlatformObjects, Level level) {
+        for(Object o: nonPlatformObjects){
+            JSONObject item = (JSONObject) o;
+
+            final float x = safeGetFloat(item, Constants.LEVEL_X_KEY);
+            final float y = safeGetFloat(item, Constants.LEVEL_Y_KEY);
+
+            Vector2 lowerLeftCorner = new Vector2(x,y);
+
+            //check if object is gigagal
+            if(item.get(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.STANDING_RIGHT)){
+                final Vector2 gigagalPosition = lowerLeftCorner.add(Constants.GIGAGAL_EYE_POSITION);
+                level.setGigaGal(gigagalPosition);
+            }
+
+            else if(item.get(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.EXIT_PORTAL_SPRITE_1)){
+                final Vector2 position = lowerLeftCorner.add(Constants.EXIT_PORTAL_CENTER);
+                level.setExitPortal(position);
+            }
+
+            else if(item.get(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.POWERUP_SPRITE)){
+                final Vector2 position = lowerLeftCorner.add(Constants.POWERUP_CENTER);
+                level.setPowerups(position);
+            }
+        }
     }
 
     private static void loadPlatforms(JSONArray platforms, Level level) {

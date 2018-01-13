@@ -7,10 +7,8 @@ import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.udacity.gamedev.gigagal.entities.*;
-import com.udacity.gamedev.gigagal.util.Assets;
 import com.udacity.gamedev.gigagal.util.Constants;
 import com.udacity.gamedev.gigagal.util.Enums;
-import com.udacity.gamedev.gigagal.util.Util;
 
 
 public class Level {
@@ -28,12 +26,12 @@ public class Level {
     public Level(Viewport viewport) {
         this.viewport = viewport;
         platformArray = new Array<Platform>();
-        gigaGal = new GigaGal(new Vector2(512, 400), this);
+//        gigaGal = new GigaGal(new Vector2(512, 400), this);
         enemies = new DelayedRemovalArray<Enemy>();
         bullets = new DelayedRemovalArray<Bullet>();
         explosions = new DelayedRemovalArray<Explosion>();
         powerups = new DelayedRemovalArray<Powerup>();
-        exitPortal = new ExitPortal(Constants.EXIT_PORTAL_DEFAULT_LOCATION);
+//        exitPortal = new ExitPortal(Constants.EXIT_PORTAL_DEFAULT_LOCATION);
 //        addDebugPlatform();
     }
 
@@ -151,5 +149,17 @@ public class Level {
 
     public Array<Platform> getPlatformArray() {
         return platformArray;
+    }
+
+    public void setGigaGal(Vector2 position) {
+        gigaGal = new GigaGal(position, this);
+    }
+
+    public void setExitPortal(Vector2 position) {
+        exitPortal = new ExitPortal(position);
+    }
+
+    public void setPowerups(Vector2 position) {
+        powerups.add(new Powerup(position));
     }
 }
