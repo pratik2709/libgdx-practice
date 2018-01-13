@@ -104,4 +104,18 @@ public class Constants {
 
     // constant for ammo powerup
     public static final int AMMO_POWERUP = 5;
+
+    public static final String LEVEL_DIR = "levels";
+    public static final String LEVEL_FILE_EXTENSION = "json";
+    public static final String LEVEL_COMPOSITE = "composite";
+    public static final String LEVEL_9PATCHES = "sImage9patchs";
+    public static final String LEVEL_IMAGES = "sImages";
+    public static final String LEVEL_ERROR_MESSAGE = "There was a problem loading the level.";
+    public static final String LEVEL_IMAGENAME_KEY = "imageName";
+    public static final String LEVEL_X_KEY = "x";
+    public static final String LEVEL_Y_KEY = "y";
+    public static final String LEVEL_WIDTH_KEY = "width";
+    public static final String LEVEL_HEIGHT_KEY = "height";
+    public static final String LEVEL_IDENTIFIER_KEY = "itemIdentifier";
+    public static final String LEVEL_ENEMY_TAG = "Enemy";
 }
