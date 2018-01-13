@@ -7,7 +7,10 @@ import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.udacity.gamedev.gigagal.entities.*;
+import com.udacity.gamedev.gigagal.util.Assets;
+import com.udacity.gamedev.gigagal.util.Constants;
 import com.udacity.gamedev.gigagal.util.Enums;
+import com.udacity.gamedev.gigagal.util.Util;
 
 
 public class Level {
@@ -19,6 +22,7 @@ public class Level {
     private DelayedRemovalArray<Explosion> explosions;
     private DelayedRemovalArray<Powerup> powerups;
     private Viewport viewport;
+    private ExitPortal exitPortal;
 
 
     public Level(Viewport viewport) {
@@ -29,6 +33,7 @@ public class Level {
         bullets = new DelayedRemovalArray<Bullet>();
         explosions = new DelayedRemovalArray<Explosion>();
         powerups = new DelayedRemovalArray<Powerup>();
+        exitPortal = new ExitPortal(Constants.EXIT_PORTAL_DEFAULT_LOCATION);
 //        addDebugPlatform();
     }
 
@@ -71,6 +76,12 @@ public class Level {
         for(Explosion explosion: explosions){
             explosion.render(batch);
         }
+
+//        Util.drawTextureRegion(batch,
+//                Assets.instance.exitPortalAssets.exitPortalAnimation.getKeyFrame(explosionStartTime),
+//                new Vector2(10, 10), Constants.BULLET_CENTER
+//        );
+        exitPortal.render(batch);
 
         batch.end();
         gigaGal.render(batch);
