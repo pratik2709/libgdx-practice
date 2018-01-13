@@ -12,7 +12,7 @@ import com.udacity.gamedev.gigagal.util.Enums;
 
 public class Level {
     GigaGal gigaGal;
-    Array<Platform> platformArray;
+    private Array<Platform> platformArray;
     long explosionStartTime;
     private DelayedRemovalArray<Enemy> enemies;
     private DelayedRemovalArray<Bullet> bullets;
@@ -24,7 +24,12 @@ public class Level {
     public Level(Viewport viewport) {
         this.viewport = viewport;
         platformArray = new Array<Platform>();
-        addDebugPlatform();
+        gigaGal = new GigaGal(new Vector2(512, 400), this);
+        enemies = new DelayedRemovalArray<Enemy>();
+        bullets = new DelayedRemovalArray<Bullet>();
+        explosions = new DelayedRemovalArray<Explosion>();
+        powerups = new DelayedRemovalArray<Powerup>();
+//        addDebugPlatform();
     }
 
     private void addDebugPlatform() {
@@ -38,13 +43,7 @@ public class Level {
         platformArray.add(new Platform(150, 180, 30, 9));
         platformArray.add(new Platform(200, 200, 9, 9));
         platformArray.add(new Platform(280, 100, 30, 9));
-
-        gigaGal = new GigaGal(new Vector2(15, 100), this);
-        enemies = new DelayedRemovalArray<Enemy>();
         enemies.add(new Enemy(new Platform(100, 110, 30, 9)));
-        bullets = new DelayedRemovalArray<Bullet>();
-        explosions = new DelayedRemovalArray<Explosion>();
-        powerups = new DelayedRemovalArray<Powerup>();
         powerups.add(new Powerup(new Vector2(50, 150)));
     }
 
@@ -137,5 +136,9 @@ public class Level {
 
     public DelayedRemovalArray<Powerup> getPowerups() {
         return powerups;
+    }
+
+    public Array<Platform> getPlatformArray() {
+        return platformArray;
     }
 }

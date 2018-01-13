@@ -5,10 +5,10 @@ import com.udacity.gamedev.gigagal.util.Assets;
 
 public class Platform {
 
-    float top;
-    float bottom;
-    float left;
-    float right;
+    public float top;
+    public float bottom;
+    public float left;
+    public float right;
 
     public Platform(float left, float top, float width, float height){
         this.top = top;
@@ -25,4 +25,5 @@ public class Platform {
         Assets.instance.platformAssets.platformNinePatch.draw(batch, left - 1, bottom - 1,
                 width + 2, height + 2);
     }
+
 }
