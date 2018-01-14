@@ -26,6 +26,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public ExitPortalAssets exitPortalAssets;
 
     private AssetManager assetManager;
+    public OnScreenControlsAssets onScreenControlsAssets;
 
 
     private Assets(){
@@ -44,6 +45,7 @@ public class Assets implements Disposable, AssetErrorListener {
         explosionAssets = new ExplosionAssets(atlas);
         powerupAssets = new PowerupAssets(atlas);
         exitPortalAssets = new ExitPortalAssets(atlas);
+        onScreenControlsAssets = new OnScreenControlsAssets(atlas);
     }
 
     @Override

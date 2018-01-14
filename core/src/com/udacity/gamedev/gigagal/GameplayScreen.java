@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.udacity.gamedev.gigagal.overlays.GigaGalHud;
+import com.udacity.gamedev.gigagal.overlays.OnScreenControls;
 import com.udacity.gamedev.gigagal.util.Assets;
 import com.udacity.gamedev.gigagal.util.ChaseCam;
 import com.udacity.gamedev.gigagal.util.Constants;
@@ -30,6 +31,8 @@ public class GameplayScreen extends ScreenAdapter {
 
     private GigaGalHud gigaGalHud;
 
+    private OnScreenControls onScreenControls;
+
     @Override
     public void show(){
         extendViewport = new ExtendViewport(WORLD_SIZE, WORLD_SIZE);
@@ -40,12 +43,14 @@ public class GameplayScreen extends ScreenAdapter {
         batch = new SpriteBatch();
         chaseCamera = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         gigaGalHud = new GigaGalHud();
+        onScreenControls = new OnScreenControls();
     }
 
     @Override
     public void resize(int width, int height){
         gigaGalHud.viewport.update(width, height, true);
         extendViewport.update(width, height, true);
+        onScreenControls.viewport.update(width, height, true);
     }
 
     @Override
@@ -73,5 +78,6 @@ public class GameplayScreen extends ScreenAdapter {
         gigaGalHud.render(batch,level.gigaGal.getLives(),
                 level.gigaGal.getAmmoCount(),
                 level.score);
+        onScreenControls.render(batch);
     }
 }
