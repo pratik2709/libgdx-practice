@@ -44,7 +44,9 @@ public class GigaGal {
 
     long walkStartTime;
 
-    int ammoCount;
+    private int ammoCount;
+
+    private int lives;
 
     Level level;
 
@@ -54,7 +56,7 @@ public class GigaGal {
         gigagalPosition = new Vector2();
         lastFramePosition = new Vector2();
         velocity = new Vector2();
-
+        lives = Constants.GIGAGAL_LIVES;
         init();
     }
 
@@ -116,6 +118,7 @@ public class GigaGal {
         gigagalPosition.mulAdd(velocity, delta);
 
         if (gigagalPosition.y - Constants.GIGAGAL_EYE_HEIGHT < Constants.KILL_PLANE) {
+            lives--;
             init();
         }
 
@@ -223,7 +226,7 @@ public class GigaGal {
             );
 
             if (gigagalRectangle.overlaps(powerupRectangle)) {
-                ammoCount += Constants.AMMO_POWERUP;
+                ammoCount += Constants.POWERUP_SCORE;
                 powerups.removeValue(powerup, false);
             }
         }
@@ -328,4 +331,11 @@ public class GigaGal {
         WALKING
     }
 
+    public int getAmmoCount() {
+        return ammoCount;
+    }
+
+    public int getLives(){
+        return lives;
+    }
 }

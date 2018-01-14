@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.udacity.gamedev.gigagal.entities.*;
+import com.udacity.gamedev.gigagal.util.Constants;
 import com.udacity.gamedev.gigagal.util.Enums;
 
 
@@ -20,6 +21,7 @@ public class Level {
     private DelayedRemovalArray<Powerup> powerups;
     private Viewport viewport;
     private ExitPortal exitPortal;
+    public int score;
 
 
     public Level(Viewport viewport) {
@@ -30,6 +32,7 @@ public class Level {
         bullets = new DelayedRemovalArray<Bullet>();
         explosions = new DelayedRemovalArray<Explosion>();
         powerups = new DelayedRemovalArray<Powerup>();
+        score = 0;
 //        exitPortal = new ExitPortal(Constants.EXIT_PORTAL_DEFAULT_LOCATION);
 //        addDebugPlatform();
     }
@@ -92,6 +95,7 @@ public class Level {
             Enemy enemy = enemies.get(i);
             enemy.update(delta);
             if(enemy.healthCounter < 1){
+                score += Constants.ENEMY_KILL_SCORE;
                 spawnExplosion(enemy.enemyPosition);
                 enemies.removeIndex(i);
             }
@@ -156,5 +160,9 @@ public class Level {
 
     public void setPowerups(Vector2 position) {
         powerups.add(new Powerup(position));
+    }
+
+    public GigaGal getGigaGal() {
+        return gigaGal;
     }
 }

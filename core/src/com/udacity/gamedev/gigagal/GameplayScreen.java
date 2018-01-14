@@ -70,6 +70,8 @@ public class GameplayScreen extends ScreenAdapter {
         //why?
         batch.setProjectionMatrix(extendViewport.getCamera().combined);
         level.render(batch);
-        gigaGalHud.render(batch);
+        gigaGalHud.render(batch,level.gigaGal.getLives(),
+                level.gigaGal.getAmmoCount(),
+                level.score);
     }
 }
