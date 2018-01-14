@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.udacity.gamedev.gigagal.entities.*;
-import com.udacity.gamedev.gigagal.util.Constants;
 import com.udacity.gamedev.gigagal.util.Enums;
 
 
@@ -75,10 +74,6 @@ public class Level {
             explosion.render(batch);
         }
 
-//        Util.drawTextureRegion(batch,
-//                Assets.instance.exitPortalAssets.exitPortalAnimation.getKeyFrame(explosionStartTime),
-//                new Vector2(10, 10), Constants.BULLET_CENTER
-//        );
         exitPortal.render(batch);
 
         batch.end();

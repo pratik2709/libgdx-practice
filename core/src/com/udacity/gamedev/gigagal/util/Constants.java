@@ -131,4 +131,7 @@ public class Constants {
     public static final float EXIT_PORTAL_FRAME_DURATION = 0.10f;
     public static final Vector2 EXIT_PORTAL_DEFAULT_LOCATION = new Vector2(252,400);
 
+    //HUD
+    public static final float HUD_VIEWPORT_SIZE = 480;
+
 }
