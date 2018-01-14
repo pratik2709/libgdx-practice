@@ -133,7 +133,7 @@ public class Constants {
 
     //HUD
     public static final float HUD_VIEWPORT_SIZE = 480;
-    public static final float HUD_MARGIN = 20;
+    public static final float HUD_MARGIN = 30;
     public static final String HUD_AMMO_LABEL = "Ammo: ";
     public static final String HUD_SCORE_LABEL = "Score: ";
 
