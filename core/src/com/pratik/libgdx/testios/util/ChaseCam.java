@@ -1,8 +1,8 @@
-package com.udacity.gamedev.gigagal.util;
+package com.pratik.libgdx.testios.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.udacity.gamedev.gigagal.entities.GigaGal;
+import com.pratik.libgdx.testios.entities.GigaGal;
 
 import static com.badlogic.gdx.Input.Keys.*;
 

@@ -1,4 +1,4 @@
-package com.udacity.gamedev.gigagal.util;
+package com.pratik.libgdx.testios.util;
 
 public class Enums {
 

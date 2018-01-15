@@ -1,4 +1,4 @@
-package com.udacity.gamedev.gigagal.util;
+package com.pratik.libgdx.testios.util;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -7,11 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 
-import static com.udacity.gamedev.gigagal.util.Constants.*;
-import static com.udacity.gamedev.gigagal.util.Constants.WALK_1_RIGHT;
-import static com.udacity.gamedev.gigagal.util.Constants.WALK_3_RIGHT;
-
-import com.badlogic.gdx.graphics.g2d.Animation;
+import static com.pratik.libgdx.testios.util.Constants.*;
+import static com.pratik.libgdx.testios.util.Constants.WALK_1_RIGHT;
+import static com.pratik.libgdx.testios.util.Constants.WALK_3_RIGHT;
 
 
 public class GigaGalAssets {

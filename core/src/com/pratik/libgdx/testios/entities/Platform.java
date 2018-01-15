@@ -1,7 +1,7 @@
-package com.udacity.gamedev.gigagal.entities;
+package com.pratik.libgdx.testios.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.udacity.gamedev.gigagal.util.Assets;
+import com.pratik.libgdx.testios.util.Assets;
 
 public class Platform {
 

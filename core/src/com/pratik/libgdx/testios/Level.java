@@ -1,4 +1,4 @@
-package com.udacity.gamedev.gigagal;
+package com.pratik.libgdx.testios;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -6,9 +6,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.udacity.gamedev.gigagal.entities.*;
-import com.udacity.gamedev.gigagal.util.Constants;
-import com.udacity.gamedev.gigagal.util.Enums;
+import com.pratik.libgdx.testios.entities.*;
+import com.pratik.libgdx.testios.util.Constants;
+import com.pratik.libgdx.testios.util.Enums;
 
 
 public class Level {

@@ -1,13 +1,13 @@
-package com.udacity.gamedev.gigagal;
+package com.pratik.libgdx.testios;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.udacity.gamedev.gigagal.entities.Enemy;
-import com.udacity.gamedev.gigagal.entities.Platform;
-import com.udacity.gamedev.gigagal.util.Constants;
+import com.pratik.libgdx.testios.entities.Enemy;
+import com.pratik.libgdx.testios.entities.Platform;
+import com.pratik.libgdx.testios.util.Constants;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

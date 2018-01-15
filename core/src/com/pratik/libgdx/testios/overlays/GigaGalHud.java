@@ -1,4 +1,4 @@
-package com.udacity.gamedev.gigagal.overlays;
+package com.pratik.libgdx.testios.overlays;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.udacity.gamedev.gigagal.util.Assets;
-import com.udacity.gamedev.gigagal.util.Constants;
-import com.udacity.gamedev.gigagal.util.Util;
+import com.pratik.libgdx.testios.util.Constants;
+import com.pratik.libgdx.testios.util.Assets;
+import com.pratik.libgdx.testios.util.Util;
 
 public class GigaGalHud {
     public final Viewport viewport;

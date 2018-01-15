@@ -1,4 +1,4 @@
-package com.udacity.gamedev.gigagal;
+package com.pratik.libgdx.testios;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -6,13 +6,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.udacity.gamedev.gigagal.overlays.GigaGalHud;
-import com.udacity.gamedev.gigagal.overlays.OnScreenControls;
-import com.udacity.gamedev.gigagal.util.Assets;
-import com.udacity.gamedev.gigagal.util.ChaseCam;
-import com.udacity.gamedev.gigagal.util.Constants;
-
-import static com.udacity.gamedev.gigagal.util.Constants.WORLD_SIZE;
+import com.pratik.libgdx.testios.overlays.GigaGalHud;
+import com.pratik.libgdx.testios.overlays.OnScreenControls;
+import com.pratik.libgdx.testios.util.Constants;
+import com.pratik.libgdx.testios.util.Assets;
+import com.pratik.libgdx.testios.util.ChaseCam;
 
 public class GameplayScreen extends ScreenAdapter {
 
@@ -35,7 +33,7 @@ public class GameplayScreen extends ScreenAdapter {
 
     @Override
     public void show(){
-        extendViewport = new ExtendViewport(WORLD_SIZE, WORLD_SIZE);
+        extendViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
         //Assets
         AssetManager am = new AssetManager();
         Assets.instance.init(am);

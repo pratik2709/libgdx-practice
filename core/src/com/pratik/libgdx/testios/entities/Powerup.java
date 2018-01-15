@@ -1,10 +1,10 @@
-package com.udacity.gamedev.gigagal.entities;
+package com.pratik.libgdx.testios.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.udacity.gamedev.gigagal.util.Assets;
-import com.udacity.gamedev.gigagal.util.Constants;
-import com.udacity.gamedev.gigagal.util.Util;
+import com.pratik.libgdx.testios.util.Assets;
+import com.pratik.libgdx.testios.util.Constants;
+import com.pratik.libgdx.testios.util.Util;
 
 public class Powerup {
     final public Vector2 position;

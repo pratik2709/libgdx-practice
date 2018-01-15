@@ -1,4 +1,4 @@
-package com.udacity.gamedev.gigagal.util;
+package com.pratik.libgdx.testios.util;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 

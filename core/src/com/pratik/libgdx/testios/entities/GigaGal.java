@@ -1,4 +1,4 @@
-package com.udacity.gamedev.gigagal.entities;
+package com.pratik.libgdx.testios.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,14 +9,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.udacity.gamedev.gigagal.Level;
-import com.udacity.gamedev.gigagal.util.Assets;
-import com.udacity.gamedev.gigagal.util.Constants;
-import com.udacity.gamedev.gigagal.util.Enums;
-import com.udacity.gamedev.gigagal.util.Util;
+import com.pratik.libgdx.testios.util.Constants;
+import com.pratik.libgdx.testios.Level;
+import com.pratik.libgdx.testios.util.Assets;
+import com.pratik.libgdx.testios.util.Enums;
+import com.pratik.libgdx.testios.util.Util;
 
 import static com.badlogic.gdx.Input.Keys.*;
-import static com.udacity.gamedev.gigagal.util.Constants.*;
 
 public class GigaGal {
 
@@ -116,7 +115,7 @@ public class GigaGal {
 
         //accelerate
         //no idea ??
-        velocity.y -= delta * GRAVITY;
+        velocity.y -= delta * Constants.GRAVITY;
 
         //apply velocity to position
         gigagalPosition.mulAdd(velocity, delta);
@@ -300,8 +299,8 @@ public class GigaGal {
             return;
         } else {
             // jump duration
-            if (MathUtils.nanoToSec * (TimeUtils.nanoTime() - jumpStartTime) < GIGAGAL_JUMP_DURATION) {
-                velocity.y = GIGAGAL_JUMP_SPEED;
+            if (MathUtils.nanoToSec * (TimeUtils.nanoTime() - jumpStartTime) < Constants.GIGAGAL_JUMP_DURATION) {
+                velocity.y = Constants.GIGAGAL_JUMP_SPEED;
             } else {
                 endJump();
             }
@@ -315,7 +314,7 @@ public class GigaGal {
         }
         walkState = WalkState.WALKING;
         facingDirection = facingDirection.RIGHT;
-        gigagalPosition.x += delta * GIGAGAL_MOVE_SPEED;
+        gigagalPosition.x += delta * Constants.GIGAGAL_MOVE_SPEED;
 
     }
 
@@ -325,7 +324,7 @@ public class GigaGal {
         }
         walkState = WalkState.WALKING;
         facingDirection = facingDirection.LEFT;
-        gigagalPosition.x -= delta * GIGAGAL_MOVE_SPEED;
+        gigagalPosition.x -= delta * Constants.GIGAGAL_MOVE_SPEED;
     }
 
     enum JumpState {

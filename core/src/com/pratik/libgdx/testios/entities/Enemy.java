@@ -1,20 +1,20 @@
-package com.udacity.gamedev.gigagal.entities;
+package com.pratik.libgdx.testios.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.udacity.gamedev.gigagal.util.Assets;
-import com.udacity.gamedev.gigagal.util.Constants;
-import com.udacity.gamedev.gigagal.util.Enums.Direction;
-import com.udacity.gamedev.gigagal.util.Util;
+import com.pratik.libgdx.testios.util.Constants;
+import com.pratik.libgdx.testios.util.Enums;
+import com.pratik.libgdx.testios.util.Assets;
+import com.pratik.libgdx.testios.util.Util;
 
 public class Enemy {
 
     Platform platform;
     public Vector2 enemyPosition;
 
-    private Direction direction;
+    private Enums.Direction direction;
     final long startTime;
     public int healthCounter;
 
@@ -24,7 +24,7 @@ public class Enemy {
         // initialize platform variable
         enemyPosition = new Vector2(platform.left, platform.top + Constants.ENEMY_CENTER.y);
 
-        direction = Direction.RIGHT;
+        direction = Enums.Direction.RIGHT;
         startTime = TimeUtils.nanoTime();
 
         healthCounter = Constants.ENEMY_HEALTH;
@@ -42,10 +42,10 @@ public class Enemy {
 
         if (enemyPosition.x > platform.right) {
             enemyPosition.x = platform.right;
-            direction = Direction.LEFT;
+            direction = Enums.Direction.LEFT;
         } else if (enemyPosition.x < platform.left) {
             enemyPosition.x = platform.left;
-            direction = Direction.RIGHT;
+            direction = Enums.Direction.RIGHT;
         }
 
         final float elapsedTime = Util.secondsSince(startTime);

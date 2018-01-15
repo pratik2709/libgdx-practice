@@ -1,4 +1,4 @@
-package com.udacity.gamedev.gigagal;
+package com.pratik.libgdx.testios;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
