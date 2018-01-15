@@ -22,6 +22,10 @@ public class GigaGal {
 
     public final static String TAG = GigaGal.class.getName();
 
+    public boolean jumpButtonPressed;
+    public boolean leftButtonPressed;
+    public boolean rightButtonPressed;
+
     Vector2 spawnLocation;
 
     //add a position
@@ -165,7 +169,7 @@ public class GigaGal {
         }
 
 
-        if (Gdx.input.isKeyPressed(Z)) {
+        if (Gdx.input.isKeyPressed(Z) || jumpButtonPressed) {
             switch (jumpState) {
                 case JUMPING:
                     continueJumping();
@@ -180,10 +184,12 @@ public class GigaGal {
             endJump();
         }
 
-        if (Gdx.input.isKeyPressed(RIGHT) && jumpState != JumpState.RECOILING) {
+        boolean left = Gdx.input.isKeyPressed(LEFT) || leftButtonPressed;
+        boolean right = Gdx.input.isKeyPressed(RIGHT) || rightButtonPressed;
 
+        if (right && jumpState != JumpState.RECOILING) {
             moveRight(delta);
-        } else if (Gdx.input.isKeyPressed(LEFT) && jumpState != JumpState.RECOILING) {
+        } else if (left && jumpState != JumpState.RECOILING) {
             moveLeft(delta);
         } else {
             // no left and right so stand right there
@@ -192,24 +198,28 @@ public class GigaGal {
 
         handlePowerups(gigagalRectangle);
 
-            if (Gdx.input.isKeyJustPressed(X) && ammoCount > 0) {
-                Vector2 bulletPosition;
-                ammoCount -= 1;
-                if (facingDirection == Enums.Direction.RIGHT) {
-                    //position tracks the eye and to get the canon position add the
-                    // canon offset
-                    bulletPosition = new Vector2(gigagalPosition.x + Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
-                            gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
-                    level.spawnBullet(bulletPosition, facingDirection);
-                } else {
-                    bulletPosition = new Vector2(gigagalPosition.x - Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
-                            gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
-                    level.spawnBullet(bulletPosition, facingDirection);
+        handleShooting();
 
-                }
+    }
+
+    public void handleShooting() {
+        if (Gdx.input.isKeyJustPressed(X) && ammoCount > 0) {
+            Vector2 bulletPosition;
+            ammoCount -= 1;
+            if (facingDirection == Enums.Direction.RIGHT) {
+                //position tracks the eye and to get the canon position add the
+                // canon offset
+                bulletPosition = new Vector2(gigagalPosition.x + Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
+                        gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
+                level.spawnBullet(bulletPosition, facingDirection);
+            } else {
+                bulletPosition = new Vector2(gigagalPosition.x - Constants.GIGAGAL_EYE_BARREL_OFFSET.x,
+                        gigagalPosition.y + Constants.GIGAGAL_EYE_BARREL_OFFSET.y);
+                level.spawnBullet(bulletPosition, facingDirection);
 
             }
 
+        }
     }
 
     private void handlePowerups(Rectangle gigagalRectangle) {

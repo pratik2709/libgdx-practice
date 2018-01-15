@@ -43,7 +43,7 @@ public class GameplayScreen extends ScreenAdapter {
         batch = new SpriteBatch();
         chaseCamera = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         gigaGalHud = new GigaGalHud();
-        onScreenControls = new OnScreenControls();
+        onScreenControls = new OnScreenControls(level);
     }
 
     @Override
