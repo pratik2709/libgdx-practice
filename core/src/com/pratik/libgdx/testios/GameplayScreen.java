@@ -1,5 +1,6 @@
 package com.pratik.libgdx.testios;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
@@ -42,6 +43,17 @@ public class GameplayScreen extends ScreenAdapter {
         chaseCamera = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         gigaGalHud = new GigaGalHud();
         onScreenControls = new OnScreenControls(level);
+
+        if(onMobile()){
+            Gdx.input.setInputProcessor(onScreenControls);
+        }
+
+    }
+
+    private boolean onMobile() {
+//        return Gdx.app.getType() == Application.ApplicationType.Android ||
+//                Gdx.app.getType() == Application.ApplicationType.iOS;
+        return true;
     }
 
     @Override
@@ -76,6 +88,8 @@ public class GameplayScreen extends ScreenAdapter {
         gigaGalHud.render(batch,level.gigaGal.getLives(),
                 level.gigaGal.getAmmoCount(),
                 level.score);
-        onScreenControls.render(batch);
+        if(onMobile()){
+            onScreenControls.render(batch);
+        }
     }
 }
