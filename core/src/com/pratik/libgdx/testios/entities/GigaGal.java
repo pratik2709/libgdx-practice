@@ -196,13 +196,15 @@ public class GigaGal {
         }
 
         handlePowerups(gigagalRectangle);
+        if (Gdx.input.isKeyJustPressed(X)) {
+            handleShooting();
+        }
 
-        handleShooting();
 
     }
 
     public void handleShooting() {
-        if (Gdx.input.isKeyJustPressed(X) && ammoCount > 0) {
+        if (ammoCount > 0) {
             Vector2 bulletPosition;
             ammoCount -= 1;
             if (facingDirection == Enums.Direction.RIGHT) {
@@ -217,8 +219,9 @@ public class GigaGal {
                 level.spawnBullet(bulletPosition, facingDirection);
 
             }
-
         }
+
+
     }
 
     private void handlePowerups(Rectangle gigagalRectangle) {
@@ -344,7 +347,7 @@ public class GigaGal {
         return ammoCount;
     }
 
-    public int getLives(){
+    public int getLives() {
         return lives;
     }
 }
