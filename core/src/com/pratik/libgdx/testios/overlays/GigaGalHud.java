@@ -35,10 +35,9 @@ public class GigaGalHud {
             Util.drawTextureRegion(batch,
                     standingRight,
                     new Vector2(
-                            viewport.getWorldWidth() - i*( Constants.HUD_MARGIN/2 +
-                                    standingRight.getRegionWidth()),
-                            viewport.getWorldHeight() - Constants.HUD_MARGIN
-                    - standingRight.getRegionHeight()),
+                            viewport.getWorldWidth() - i*(standingRight.getRegionWidth()) -
+                            Constants.HUD_MARGIN,
+                            viewport.getWorldHeight() - standingRight.getRegionHeight()),
                     Constants.GIGAGAL_EYE_POSITION);
         }
         batch.end();
