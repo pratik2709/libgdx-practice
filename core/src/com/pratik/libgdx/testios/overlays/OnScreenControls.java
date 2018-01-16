@@ -29,15 +29,14 @@ public class OnScreenControls extends InputAdapter {
         gigaGal = level.getGigaGal();
         viewport = new ExtendViewport(Constants.ONSCREEN_CONTROLS_VIEWPORT_SIZE,
                 Constants.ONSCREEN_CONTROLS_VIEWPORT_SIZE);
-        recalculateButtonPositions();
 
     }
 
     private void recalculateButtonPositions() {
         moveLeftCenter.set(Constants.BUTTON_RADIUS*3/4, Constants.BUTTON_RADIUS);
         moveRightCenter.set(Constants.BUTTON_RADIUS*2, Constants.BUTTON_RADIUS*3/4);
-        shootCenter.set(Constants.BUTTON_RADIUS * 6, Constants.BUTTON_RADIUS*3/4);
-        jumpCenter.set(Constants.BUTTON_RADIUS*3/4 * 6, Constants.BUTTON_RADIUS);
+        shootCenter.set(viewport.getWorldWidth() - Constants.BUTTON_RADIUS*2, Constants.BUTTON_RADIUS*3/4);
+        jumpCenter.set(viewport.getWorldWidth() - Constants.BUTTON_RADIUS*3/4, Constants.BUTTON_RADIUS);
     }
 
 
@@ -89,6 +88,7 @@ public class OnScreenControls extends InputAdapter {
 
     public void render(SpriteBatch batch){
         viewport.apply();
+        recalculateButtonPositions();
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
 
