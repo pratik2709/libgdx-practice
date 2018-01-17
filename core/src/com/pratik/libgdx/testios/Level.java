@@ -1,6 +1,7 @@
 package com.pratik.libgdx.testios;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
@@ -13,8 +14,9 @@ import com.pratik.libgdx.testios.util.Enums;
 
 public class Level {
     GigaGal gigaGal;
+    public boolean gameOver = false;
+    public boolean victory = false;
     private Array<Platform> platformArray;
-    long explosionStartTime;
     private DelayedRemovalArray<Enemy> enemies;
     private DelayedRemovalArray<Bullet> bullets;
     private DelayedRemovalArray<Explosion> explosions;
@@ -58,7 +60,7 @@ public class Level {
             platform.render(batch);
         }
 
-        for (Powerup powerup: powerups){
+        for (Powerup powerup : powerups) {
             powerup.render(batch);
         }
 
@@ -73,7 +75,7 @@ public class Level {
         }
 
 
-        for(Explosion explosion: explosions){
+        for (Explosion explosion : explosions) {
             explosion.render(batch);
         }
 
@@ -86,42 +88,56 @@ public class Level {
     }
 
     public void update(float delta) {
-        explosionStartTime = TimeUtils.nanoTime();
-        gigaGal.update(delta, platformArray);
 
-        enemies.begin();
-
-        for (int i = 0; i < enemies.size; i++) {
-            Enemy enemy = enemies.get(i);
-            enemy.update(delta);
-            if(enemy.healthCounter < 1){
-                score += Constants.ENEMY_KILL_SCORE;
-                spawnExplosion(enemy.enemyPosition);
-                enemies.removeIndex(i);
-            }
+        //touching the exit portal
+        //doesnt work ideally ??
+        //distance between this and other vector
+        if (gigaGal.gigagalPosition.dst(exitPortal.position) < Constants.EXIT_PORTAL_RADIUS) {
+            victory = true;
+//            System.out.println(gigaGal.gigagalPosition);
+//            System.out.println(exitPortal.position);
+//            System.out.println(gigaGal.gigagalPosition.dst(exitPortal.position));
+//            System.out.println("overlap exists");
         }
-        enemies.end();
+
+        if (!gameOver && !victory) {
+            gigaGal.update(delta, platformArray);
+
+            enemies.begin();
+
+            for (int i = 0; i < enemies.size; i++) {
+                Enemy enemy = enemies.get(i);
+                enemy.update(delta);
+                if (enemy.healthCounter < 1) {
+                    score += Constants.ENEMY_KILL_SCORE;
+                    spawnExplosion(enemy.enemyPosition);
+                    enemies.removeIndex(i);
+                }
+            }
+            enemies.end();
 
 
 //        System.out.println(bullets.size);
-        bullets.begin();
+            bullets.begin();
 
-        for (Bullet bullet : bullets) {
-            bullet.update(delta);
-            if (!bullet.getBulletActive()) {
-                bullets.removeValue(bullet, false);
+            for (Bullet bullet : bullets) {
+                bullet.update(delta);
+                if (!bullet.getBulletActive()) {
+                    bullets.removeValue(bullet, false);
+                }
             }
-        }
-        bullets.end();
+            bullets.end();
 
-        //explosions
-        explosions.begin();
-        for(Explosion explosion: explosions){
-            if(explosion.isFinished()){
-                explosions.removeValue(explosion, false);
+            //explosions
+            explosions.begin();
+            for (Explosion explosion : explosions) {
+                if (explosion.isFinished()) {
+                    explosions.removeValue(explosion, false);
+                }
             }
+            explosions.end();
         }
-        explosions.end();
+
 
     }
 
@@ -133,7 +149,8 @@ public class Level {
         bullets.add(new Bullet(this, position, direction));
     }
 
-    public void spawnExplosion(Vector2 position){
+    public void spawnExplosion(Vector2 position) {
+
         explosions.add(new Explosion(position));
     }
 

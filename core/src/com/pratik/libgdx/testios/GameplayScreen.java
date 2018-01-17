@@ -1,17 +1,19 @@
 package com.pratik.libgdx.testios;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.pratik.libgdx.testios.overlays.GigaGalHud;
 import com.pratik.libgdx.testios.overlays.OnScreenControls;
+import com.pratik.libgdx.testios.overlays.VictoryOverlay;
 import com.pratik.libgdx.testios.util.Constants;
 import com.pratik.libgdx.testios.util.Assets;
 import com.pratik.libgdx.testios.util.ChaseCam;
+import com.pratik.libgdx.testios.util.Util;
 
 public class GameplayScreen extends ScreenAdapter {
 
@@ -32,6 +34,10 @@ public class GameplayScreen extends ScreenAdapter {
 
     private OnScreenControls onScreenControls;
 
+    //overlays
+    long levelEndOverlayStartTime;
+    private VictoryOverlay victoryOverlay;
+
     @Override
     public void show(){
         extendViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
@@ -43,7 +49,7 @@ public class GameplayScreen extends ScreenAdapter {
         chaseCamera = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         gigaGalHud = new GigaGalHud();
         onScreenControls = new OnScreenControls(level);
-
+        victoryOverlay = new VictoryOverlay();
         if(onMobile()){
             Gdx.input.setInputProcessor(onScreenControls);
         }
@@ -61,6 +67,7 @@ public class GameplayScreen extends ScreenAdapter {
         gigaGalHud.viewport.update(width, height, true);
         extendViewport.update(width, height, true);
         onScreenControls.viewport.update(width, height, true);
+        victoryOverlay.viewport.update(width, height,true);
     }
 
     @Override
@@ -88,8 +95,35 @@ public class GameplayScreen extends ScreenAdapter {
         gigaGalHud.render(batch,level.gigaGal.getLives(),
                 level.gigaGal.getAmmoCount(),
                 level.score);
+        renderLevelEndOverlays(batch);
         if(onMobile()){
             onScreenControls.render(batch);
         }
     }
+
+    private void renderLevelEndOverlays(SpriteBatch batch) {
+        if(level.victory){
+            if(levelEndOverlayStartTime == 0){
+                levelEndOverlayStartTime = TimeUtils.nanoTime();
+                victoryOverlay.init(level);
+
+            }
+            victoryOverlay.render(batch);
+            //render
+            if(Util.secondsSince(levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION){
+                levelEndOverlayStartTime = 0;
+                levelComplete();
+            }
+        }
+    }
+
+    private void levelComplete() {
+        startNewLevel();
+    }
+
+    private void startNewLevel(){
+        System.out.println("Start new level");
+    }
+
+
 }

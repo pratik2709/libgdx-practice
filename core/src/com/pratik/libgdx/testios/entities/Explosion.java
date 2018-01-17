@@ -8,8 +8,9 @@ import com.pratik.libgdx.testios.util.Constants;
 import com.pratik.libgdx.testios.util.Util;
 
 public class Explosion {
-    Vector2 position;
+    public Vector2 position;
     long startTime;
+    public float offset = 0;
 
     public Explosion(Vector2 position){
         this.position = position;
@@ -26,5 +27,9 @@ public class Explosion {
     public boolean isFinished(){
         final float elapsedTime = Util.secondsSince(startTime);
         return Assets.instance.explosionAssets.explosionAnimation.isAnimationFinished(elapsedTime);
+    }
+
+    public boolean yetToStart(){
+        return Util.secondsSince(startTime) - offset < 0;
     }
 }

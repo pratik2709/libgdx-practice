@@ -129,6 +129,7 @@ public class Constants {
     public static final Vector2 EXIT_PORTAL_CENTER = new Vector2(31, 31);
 
     public static final float EXIT_PORTAL_FRAME_DURATION = 0.10f;
+    public static final float EXIT_PORTAL_RADIUS = 28;
     public static final Vector2 EXIT_PORTAL_DEFAULT_LOCATION = new Vector2(252,400);
 
     //HUD
@@ -151,4 +152,9 @@ public class Constants {
     public static final Vector2 BUTTON_CENTER = new Vector2(15, 15);
     public static final float BUTTON_RADIUS = 32;
 
+    //Victory Game over scenes
+    public static final float LEVEL_END_DURATION = 5;
+    public static final String FONT_FILE = "font/header.fnt";
+
+    public static final int EXPLOSION_COUNT = 500;
 }
