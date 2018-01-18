@@ -6,15 +6,11 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.pratik.libgdx.testios.Level;
 import com.pratik.libgdx.testios.entities.Explosion;
-import com.pratik.libgdx.testios.util.Assets;
 import com.pratik.libgdx.testios.util.Constants;
-import com.pratik.libgdx.testios.util.Util;
 
 public class VictoryOverlay {
     public static final String TAG = VictoryOverlay.class.getName();
@@ -31,7 +27,7 @@ public class VictoryOverlay {
         textWidth = layout.width;
     }
 
-    public void init(Level level) {
+    public void init() {
         explosions = new DelayedRemovalArray<Explosion>(Constants.EXPLOSION_COUNT);
         for (int i = 0; i < Constants.EXPLOSION_COUNT; i++) {
             explosions.add(new Explosion(
@@ -52,6 +48,7 @@ public class VictoryOverlay {
             }
         }
         explosions.end();
+
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();

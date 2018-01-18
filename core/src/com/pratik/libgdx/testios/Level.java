@@ -55,6 +55,8 @@ public class Level {
     }
 
     public void render(SpriteBatch batch) {
+        viewport.apply();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
         for (Platform platform : platformArray) {
             platform.render(batch);
@@ -94,10 +96,6 @@ public class Level {
         //distance between this and other vector
         if (gigaGal.gigagalPosition.dst(exitPortal.position) < Constants.EXIT_PORTAL_RADIUS) {
             victory = true;
-//            System.out.println(gigaGal.gigagalPosition);
-//            System.out.println(exitPortal.position);
-//            System.out.println(gigaGal.gigagalPosition.dst(exitPortal.position));
-//            System.out.println("overlap exists");
         }
 
         if (!gameOver && !victory) {

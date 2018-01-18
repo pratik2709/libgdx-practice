@@ -84,7 +84,6 @@ public class GameplayScreen extends ScreenAdapter {
     public void render(float delta) {
         level.update(delta);
         chaseCamera.update(delta);
-        extendViewport.apply();
         Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r,
                 Constants.BACKGROUND_COLOR.g,
                 Constants.BACKGROUND_COLOR.b,
@@ -92,8 +91,6 @@ public class GameplayScreen extends ScreenAdapter {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //why?
-        batch.setProjectionMatrix(extendViewport.getCamera().combined);
         level.render(batch);
         gigaGalHud.render(batch, level.gigaGal.getLives(),
                 level.gigaGal.getAmmoCount(),
@@ -108,7 +105,7 @@ public class GameplayScreen extends ScreenAdapter {
         if (level.victory) {
             if (levelEndOverlayStartTime == 0) {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
-                victoryOverlay.init(level);
+                victoryOverlay.init();
 
             }
 
