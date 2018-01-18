@@ -39,7 +39,7 @@ public class GameplayScreen extends ScreenAdapter {
     private VictoryOverlay victoryOverlay;
 
     @Override
-    public void show(){
+    public void show() {
         extendViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
         //Assets
         AssetManager am = new AssetManager();
@@ -50,7 +50,7 @@ public class GameplayScreen extends ScreenAdapter {
         gigaGalHud = new GigaGalHud();
         onScreenControls = new OnScreenControls(level);
         victoryOverlay = new VictoryOverlay();
-        if(onMobile()){
+        if (onMobile()) {
             Gdx.input.setInputProcessor(onScreenControls);
         }
 
@@ -62,23 +62,26 @@ public class GameplayScreen extends ScreenAdapter {
         return true;
     }
 
+    //This method is called every time the game screen is
+    // re-sized
     @Override
-    public void resize(int width, int height){
+    public void resize(int width, int height) {
         gigaGalHud.viewport.update(width, height, true);
         extendViewport.update(width, height, true);
         onScreenControls.viewport.update(width, height, true);
-        victoryOverlay.viewport.update(width, height,true);
+        victoryOverlay.viewport.update(width, height, true);
     }
 
     @Override
-    public void dispose(){
+    public void dispose() {
         //
         Assets.instance.dispose();
         batch.dispose();
     }
 
+    //Game logic updates are usually also performed in this method.
     @Override
-    public void render(float delta){
+    public void render(float delta) {
         level.update(delta);
         chaseCamera.update(delta);
         extendViewport.apply();
@@ -92,25 +95,25 @@ public class GameplayScreen extends ScreenAdapter {
         //why?
         batch.setProjectionMatrix(extendViewport.getCamera().combined);
         level.render(batch);
-        gigaGalHud.render(batch,level.gigaGal.getLives(),
+        gigaGalHud.render(batch, level.gigaGal.getLives(),
                 level.gigaGal.getAmmoCount(),
                 level.score);
         renderLevelEndOverlays(batch);
-        if(onMobile()){
+        if (onMobile()) {
             onScreenControls.render(batch);
         }
     }
 
     private void renderLevelEndOverlays(SpriteBatch batch) {
-        if(level.victory){
-            if(levelEndOverlayStartTime == 0){
+        if (level.victory) {
+            if (levelEndOverlayStartTime == 0) {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
                 victoryOverlay.init(level);
 
             }
             victoryOverlay.render(batch);
             //render
-            if(Util.secondsSince(levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION){
+            if (Util.secondsSince(levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION) {
                 levelEndOverlayStartTime = 0;
                 levelComplete();
             }
@@ -121,8 +124,10 @@ public class GameplayScreen extends ScreenAdapter {
         startNewLevel();
     }
 
-    private void startNewLevel(){
-        System.out.println("Start new level");
+    private void startNewLevel() {
+        level = LevelLoader.load("Level1", extendViewport);
+        chaseCamera = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
+        resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
 
