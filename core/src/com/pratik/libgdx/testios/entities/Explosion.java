@@ -10,10 +10,17 @@ import com.pratik.libgdx.testios.util.Util;
 public class Explosion {
     public Vector2 position;
     long startTime;
-    public float offset = 0;
+    public float offset;
+
+    public Explosion(Vector2 position, float offset){
+        this.position = position;
+        this.offset = offset;
+        startTime = TimeUtils.nanoTime();
+    }
 
     public Explosion(Vector2 position){
         this.position = position;
+        this.offset = 0;
         startTime = TimeUtils.nanoTime();
     }
 
@@ -25,7 +32,7 @@ public class Explosion {
     }
 
     public boolean isFinished(){
-        final float elapsedTime = Util.secondsSince(startTime);
+        final float elapsedTime = Util.secondsSince(startTime) - offset;
         return Assets.instance.explosionAssets.explosionAnimation.isAnimationFinished(elapsedTime);
     }
 

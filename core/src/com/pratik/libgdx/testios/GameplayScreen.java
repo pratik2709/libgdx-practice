@@ -111,8 +111,9 @@ public class GameplayScreen extends ScreenAdapter {
                 victoryOverlay.init(level);
 
             }
+
             victoryOverlay.render(batch);
-            //render
+
             if (Util.secondsSince(levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION) {
                 levelEndOverlayStartTime = 0;
                 levelComplete();

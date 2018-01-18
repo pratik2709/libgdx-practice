@@ -36,7 +36,8 @@ public class VictoryOverlay {
         for (int i = 0; i < Constants.EXPLOSION_COUNT; i++) {
             explosions.add(new Explosion(
                     new Vector2(MathUtils.random(viewport.getWorldWidth() ),
-                            MathUtils.random(viewport.getWorldHeight()))
+                            MathUtils.random(viewport.getWorldHeight())),
+                    MathUtils.random(Constants.LEVEL_END_DURATION)
 
             ));
         }
@@ -56,7 +57,12 @@ public class VictoryOverlay {
         batch.begin();
 
         for (Explosion explosion : explosions) {
-            explosion.render(batch);
+
+            if(!explosion.yetToStart() &&
+                    !explosion.isFinished()){
+                explosion.render(batch);
+            }
+
         }
         font.draw(batch, "You Won!",
                 viewport.getWorldWidth() / 2 - textWidth / 2,
