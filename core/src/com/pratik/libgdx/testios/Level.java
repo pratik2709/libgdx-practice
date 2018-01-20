@@ -1,11 +1,9 @@
 package com.pratik.libgdx.testios;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pratik.libgdx.testios.entities.*;
 import com.pratik.libgdx.testios.util.Constants;
@@ -14,6 +12,7 @@ import com.pratik.libgdx.testios.util.Enums;
 
 public class Level {
     GigaGal gigaGal;
+    Boss boss;
     public boolean gameOver = false;
     public boolean victory = false;
     private Array<Platform> platformArray;
@@ -82,7 +81,7 @@ public class Level {
         }
 
         exitPortal.render(batch);
-
+        boss.render(batch);
         batch.end();
         gigaGal.render(batch);
 
@@ -175,6 +174,10 @@ public class Level {
 
     public void setPowerups(Vector2 position) {
         powerups.add(new Powerup(position));
+    }
+
+    public void setBossPosition(Vector2 position) {
+        boss = new Boss(position);
     }
 
     public GigaGal getGigaGal() {

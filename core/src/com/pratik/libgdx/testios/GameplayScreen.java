@@ -44,7 +44,7 @@ public class GameplayScreen extends ScreenAdapter {
         //Assets
         AssetManager am = new AssetManager();
         Assets.instance.init(am);
-        level = LevelLoader.load("Level4", extendViewport);
+        level = LevelLoader.load("boss2", extendViewport);
         batch = new SpriteBatch();
         chaseCamera = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         gigaGalHud = new GigaGalHud();
@@ -126,6 +126,11 @@ public class GameplayScreen extends ScreenAdapter {
         level = LevelLoader.load("Level1", extendViewport);
         chaseCamera = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        onScreenControls = new OnScreenControls(level);
+        victoryOverlay = new VictoryOverlay();
+        if (onMobile()) {
+            Gdx.input.setInputProcessor(onScreenControls);
+        }
     }
 
 
