@@ -99,9 +99,10 @@ public class Level {
 
         if (!gameOver && !victory) {
             gigaGal.update(delta, platformArray);
+            //update the boss
+            boss.update(delta);
 
             enemies.begin();
-
             for (int i = 0; i < enemies.size; i++) {
                 Enemy enemy = enemies.get(i);
                 enemy.update(delta);
@@ -114,7 +115,6 @@ public class Level {
             enemies.end();
 
 
-//        System.out.println(bullets.size);
             bullets.begin();
 
             for (Bullet bullet : bullets) {
@@ -177,7 +177,7 @@ public class Level {
     }
 
     public void setBossPosition(Vector2 position) {
-        boss = new Boss(position);
+        boss = new Boss(position, this);
     }
 
     public GigaGal getGigaGal() {

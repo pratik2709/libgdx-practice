@@ -2,19 +2,25 @@ package com.pratik.libgdx.testios.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.pratik.libgdx.testios.Level;
 import com.pratik.libgdx.testios.util.Assets;
 import com.pratik.libgdx.testios.util.Constants;
+import com.pratik.libgdx.testios.util.Enums;
 import com.pratik.libgdx.testios.util.Util;
 
 
 public class Boss {
     Vector2 position;
     long startTime;
+    Level level;
+    float timeAux;
 
-    public Boss(Vector2 position) {
+    public Boss(Vector2 position, Level level) {
         this.position = position;
+        this.level = level;
         startTime = TimeUtils.nanoTime();
     }
 
@@ -47,5 +53,23 @@ public class Boss {
                 region.getRegionHeight(),
                 false,
                 false);
+    }
+
+    public void update(float delta) {
+        //fire the bullet from both cannons
+        Vector2 bulletPositionCannonOne;
+        Vector2 bulletPositionCannonTwo;
+
+        bulletPositionCannonOne = new Vector2(position.x,
+                position.y);
+
+        if(timeAux >= 0.3f){
+            level.spawnBullet(bulletPositionCannonOne, Enums.Direction.LEFT);
+            timeAux = 0;
+        }
+        else{
+            timeAux += delta;
+        }
+
     }
 }
