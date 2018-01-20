@@ -60,11 +60,19 @@ public class Boss {
         Vector2 bulletPositionCannonOne;
         Vector2 bulletPositionCannonTwo;
 
-        bulletPositionCannonOne = new Vector2(position.x,
-                position.y);
+//        System.out.println(position.x + "," + position.y);
+        bulletPositionCannonOne = new Vector2(position.x - Constants.BOSS_CENTER.x*5 +
+                Constants.BOSS_CANNON_1.x*5,
+                position.y - Constants.BOSS_CENTER.y*5 + Constants.BOSS_CANNON_1.y*5);
+
+        bulletPositionCannonTwo = new Vector2(position.x - Constants.BOSS_CENTER.x*5 +
+                Constants.BOSS_CANNON_2.x*5,
+                position.y - Constants.BOSS_CENTER.y*5 + Constants.BOSS_CANNON_2.y*5);
+
 
         if(timeAux >= 0.3f){
             level.spawnBullet(bulletPositionCannonOne, Enums.Direction.LEFT);
+            level.spawnBullet(bulletPositionCannonTwo, Enums.Direction.LEFT);
             timeAux = 0;
         }
         else{

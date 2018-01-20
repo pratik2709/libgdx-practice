@@ -164,5 +164,8 @@ public class Constants {
     public static final float BOSS_COLOR_DURATION = 3;
     public static final String BOSS_SPRITE = "Boss1";
     public static final Vector2 BOSS_CENTER = new Vector2(16,16);
-    public static final Vector2 BOSS_CANNON_1 = new Vector2(9,4);
+//    public static final Vector2 BOSS_CANNON_1 = new Vector2(9,4);
+//    public static final Vector2 BOSS_CANNON_2 = new Vector2(9,0);
+    public static final Vector2 BOSS_CANNON_1 = new Vector2(9,16);
+    public static final Vector2 BOSS_CANNON_2 = new Vector2(9,27);
 }
