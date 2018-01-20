@@ -74,6 +74,10 @@ public class LevelLoader {
                 final Vector2 position = lowerLeftCorner.add(Constants.POWERUP_CENTER);
                 level.setPowerups(position);
             }
+            else if(item.get(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.BOSS_SPRITE)){
+                final Vector2 position = lowerLeftCorner.add(Constants.BOSS_CENTER);
+                level.setBossPosition(position);
+            }
         }
     }
 

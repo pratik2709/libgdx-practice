@@ -4,6 +4,27 @@ size: 512,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+Boss1
+  rotate: false
+  xy: 158, 28
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Boss2
+  rotate: false
+  xy: 192, 28
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Boss3
+  rotate: false
+  xy: 226, 28
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 bullet
   rotate: false
   xy: 93, 18
@@ -13,28 +34,28 @@ bullet
   index: -1
 button-jump
   rotate: false
-  xy: 158, 28
+  xy: 260, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 button-move-left
   rotate: false
-  xy: 192, 28
+  xy: 294, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 button-move-right
   rotate: false
-  xy: 226, 28
+  xy: 328, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 button-shoot
   rotate: false
-  xy: 260, 28
+  xy: 362, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -90,7 +111,7 @@ exit-portal-6
   index: -1
 explosion-large
   rotate: false
-  xy: 454, 72
+  xy: 452, 35
   size: 17, 17
   orig: 17, 17
   offset: 0, 0
@@ -111,7 +132,7 @@ explosion-small
   index: -1
 jumping-left
   rotate: false
-  xy: 294, 25
+  xy: 398, 54
   size: 29, 35
   orig: 29, 35
   offset: 0, 0
@@ -139,7 +160,7 @@ powerup
   index: -1
 standing-left
   rotate: false
-  xy: 325, 25
+  xy: 429, 54
   size: 28, 35
   orig: 28, 35
   offset: 0, 0
@@ -153,7 +174,7 @@ standing-right
   index: -1
 walk-1-left
   rotate: false
-  xy: 398, 54
+  xy: 396, 17
   size: 27, 35
   orig: 27, 35
   offset: 0, 0
@@ -167,7 +188,7 @@ walk-1-right
   index: -1
 walk-2-left
   rotate: false
-  xy: 427, 54
+  xy: 425, 17
   size: 25, 35
   orig: 25, 35
   offset: 0, 0
@@ -181,7 +202,7 @@ walk-2-right
   index: -1
 walk-3-left
   rotate: false
-  xy: 355, 25
+  xy: 459, 54
   size: 28, 35
   orig: 28, 35
   offset: 0, 0

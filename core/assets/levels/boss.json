@@ -1,0 +1,90 @@
+{
+  "sceneName": "Boss Fight",
+  "composite": {
+    "sImages": [
+      {
+        "uniqueId": 3,
+        "tags": [],
+        "x": 18,
+        "y": 47,
+        "originX": 15.5,
+        "originY": 17.5,
+        "zIndex": 1,
+        "layerName": "Default",
+        "imageName": "standing-right"
+      },
+      {
+        "uniqueId": 7,
+        "itemIdentifier": "boss",
+        "tags": [],
+        "x": 493,
+        "y": 46,
+        "originX": 16,
+        "originY": 16,
+        "zIndex": 5,
+        "layerName": "Default",
+        "imageName": "Boss1"
+      }
+    ],
+    "sImage9patchs": [
+      {
+        "uniqueId": 2,
+        "tags": [],
+        "x": 23,
+        "y": 23,
+        "originX": 29,
+        "originY": 29,
+        "layerName": "Default",
+        "imageName": "platform",
+        "width": 500,
+        "height": 30
+      },
+      {
+        "uniqueId": 4,
+        "tags": [],
+        "x": 98,
+        "y": 86,
+        "originX": 29,
+        "originY": 29,
+        "zIndex": 2,
+        "layerName": "Default",
+        "imageName": "platform",
+        "width": 100,
+        "height": 20
+      },
+      {
+        "uniqueId": 6,
+        "tags": [],
+        "x": 320,
+        "y": 156,
+        "originX": 29,
+        "originY": 29,
+        "zIndex": 3,
+        "layerName": "Default",
+        "imageName": "platform",
+        "width": 100,
+        "height": 20
+      },
+      {
+        "uniqueId": 5,
+        "tags": [],
+        "x": 199,
+        "y": 125,
+        "originX": 29,
+        "originY": 29,
+        "zIndex": 4,
+        "layerName": "Default",
+        "imageName": "platform",
+        "width": 100,
+        "height": 20
+      }
+    ],
+    "layers": [
+      {
+        "layerName": "Default",
+        "isVisible": true
+      }
+    ]
+  },
+  "physicsPropertiesVO": {}
+}
