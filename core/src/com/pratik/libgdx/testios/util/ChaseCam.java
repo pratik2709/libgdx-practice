@@ -34,7 +34,7 @@ public class ChaseCam {
             camera.position.x = gigaGalPlayer.gigagalPosition.x + offset.x;
             camera.position.y = gigaGalPlayer.gigagalPosition.y + offset.y;
             //temporarty method for shaking
-            shakeCamera();
+//            shakeCamera();
         }
         else{
             if(Gdx.input.isKeyPressed(A)){

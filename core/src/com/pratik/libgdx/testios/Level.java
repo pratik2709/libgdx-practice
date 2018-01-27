@@ -100,7 +100,7 @@ public class Level {
         if (!gameOver && !victory) {
             gigaGal.update(delta, platformArray);
             //update the boss
-            boss.update(delta);
+            boss.update(delta, platformArray);
 
             enemies.begin();
             for (int i = 0; i < enemies.size; i++) {
