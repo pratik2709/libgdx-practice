@@ -170,4 +170,5 @@ public class Constants {
     public static final Vector2 BOSS_CANNON_2 = new Vector2(9,27);
     public static final int BOSS_JUMP_SPEED = 250;
     public static final double BOSS_JUMP_DURATION = 0.15;
+    public static final double SHAKE_DURATION = 1f;
 }
