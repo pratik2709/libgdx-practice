@@ -71,31 +71,42 @@ public class Boss {
         velocity.y -= delta * Constants.GRAVITY;
         position.mulAdd(velocity, delta);
 
-        for(Platform platform: platforms){
-            if(landedOnPlatform(platform)){
-                jumpState = Enums.JumpState.GROUNDED;
-                velocity.x = 0;
-                velocity.y = 0;
-                position.set(actPos);
-                break;
+        if (jumpState != Enums.JumpState.JUMPING) {
+            for (Platform platform : platforms) {
+                if (landedOnPlatform(platform)) {
+                    //start shaking the camera since player has landed
+                    //and record start time
+                    //in the next iteration/frame this should not be activated
+                    level.getChaseCam().startShakeCam();
+                    level.getChaseCam().stopShakeCam();
+                    jumpState = Enums.JumpState.GROUNDED;
+                    velocity.x = 0;
+                    velocity.y = 0;
+                    position.set(actPos);
+                    break;
+                }
             }
         }
+
         //randomly make the boss jump
-        System.out.println(timeAux1);
         if (timeAux1 >= 5f) {
             handleJumpCases();
+            level.getChaseCam().shakeState = Enums.shakeState.NEXT_READY;
             timeAux1 = 0;
         } else {
             endJump();
             timeAux1 += delta;
         }
+
+//        if(timeAux1 < 2f && timeAux1 > 1f){
+//            level.getChaseCam().setChasecam = true;
+//        }
     }
 
     private boolean landedOnPlatform(Platform platform) {
-        if(position.y <= actPos.y){
+        if (position.y <= actPos.y) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -126,15 +137,14 @@ public class Boss {
             if (MathUtils.nanoToSec * (TimeUtils.nanoTime() - startJumpTime) <
                     Constants.BOSS_JUMP_DURATION) {
                 velocity.y = Constants.BOSS_JUMP_SPEED;
-            }
-            else{
+            } else {
                 endJump();
             }
         }
     }
 
     private void endJump() {
-        if(jumpState == Enums.JumpState.JUMPING){
+        if (jumpState == Enums.JumpState.JUMPING) {
             jumpState = Enums.JumpState.FALLING;
         }
     }
