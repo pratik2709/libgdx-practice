@@ -9,4 +9,8 @@ public class Enums {
     public enum JumpState {
         JUMPING, FALLING, GROUNDED, RECOILING
     }
+
+    public enum shakeState{
+        START, STOP, NEXT_READY
+    }
 }
