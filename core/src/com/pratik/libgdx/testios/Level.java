@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pratik.libgdx.testios.entities.*;
+import com.pratik.libgdx.testios.util.ChaseCam;
 import com.pratik.libgdx.testios.util.Constants;
 import com.pratik.libgdx.testios.util.Enums;
 
@@ -23,6 +24,7 @@ public class Level {
     private Viewport viewport;
     private ExitPortal exitPortal;
     public int score;
+    private ChaseCam chaseCam;
 
 
     public Level(Viewport viewport) {
@@ -182,5 +184,13 @@ public class Level {
 
     public GigaGal getGigaGal() {
         return gigaGal;
+    }
+
+    public ChaseCam getChaseCam() {
+        return chaseCam;
+    }
+
+    public void setChaseCam(ChaseCam chaseCam) {
+        this.chaseCam = chaseCam;
     }
 }
