@@ -47,6 +47,7 @@ public class GameplayScreen extends ScreenAdapter {
         level = LevelLoader.load("boos", extendViewport);
         batch = new SpriteBatch();
         chaseCamera = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
+        level.setChaseCam(chaseCamera);
         gigaGalHud = new GigaGalHud();
         onScreenControls = new OnScreenControls(level);
         victoryOverlay = new VictoryOverlay();
