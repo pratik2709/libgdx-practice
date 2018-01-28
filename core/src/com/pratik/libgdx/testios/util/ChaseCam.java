@@ -16,11 +16,10 @@ public class ChaseCam {
     public Boolean setChasecam;
     public long shakeStartTime;
     public Enums.shakeState shakeState;
-    int startTick = 0;
 
     float radius = 30.0f;
     float randomAngle = MathUtils.random() % 360;
-    //    Vector2 offset = new Vector2(MathUtils.sin(randomAngle) * radius, MathUtils.cos(randomAngle));
+//    Vector2 offset = new Vector2(MathUtils.sin(randomAngle) * radius, MathUtils.cos(randomAngle));
     public Vector2 offset = new Vector2(0, 0);
 
     public ChaseCam(Camera camera, GigaGal gigaGal) {
@@ -75,17 +74,11 @@ public class ChaseCam {
 
     public void stopShakeCam() {
         float elapsed = Util.secondsSince(shakeStartTime);
-        System.out.println(elapsed + ":::" + Constants.SHAKE_DURATION);
-        System.out.println(elapsed > Constants.SHAKE_DURATION);
 
         if (elapsed > Constants.SHAKE_DURATION) {
             offset.setZero();
             shakeStartTime = 0;
             shakeState = Enums.shakeState.STOP;
         }
-        //shaking needs to stop here until a jump happens
-        // take a break until next trigger?
-        //whats the trigger ?
-        //
     }
 }
